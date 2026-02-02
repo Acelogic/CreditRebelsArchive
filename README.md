@@ -42,7 +42,8 @@ CreditRebelsArchive/
 │   ├── Goodwill_Saturation_Technique.pdf   # Strategy for removing late payments
 │   ├── goodwill_saturation_technique.txt   # Plain text version
 │   ├── CART_Method_Goodwill_Letters.pdf    # Letter writing template
-│   └── cart_method_goodwill_letters.txt    # Plain text version
+│   ├── cart_method_goodwill_letters.txt    # Plain text version
+│   └── Dispute_Letter_Templates.md         # 9 dispute letter templates
 └── tools/
     └── credit_toolkit.py                   # Full CLI toolkit (matches web app)
 ```
@@ -62,6 +63,9 @@ A free, privacy-focused web app with everything you need:
 | **Derogatory Tracker** | Track when negative items age off |
 | **Scorecard Estimator** | Identify which FICO 8 scorecard you're on |
 | **Quick Reference** | Key thresholds and optimal values |
+| **Score Simulator** | What-if scenarios with estimated point impacts |
+| **Bank Rules Database** | Chase 5/24, Amex rules, CLI hard/soft pull reference |
+| **Dispute Templates** | 9 letter templates for disputing errors |
 
 **Privacy:** All data stored locally in your browser. No servers, no tracking, no cookies.
 
@@ -76,6 +80,7 @@ A free, privacy-focused web app with everything you need:
 - [**Credit Scoring Primer v2.0**](docs/Credit_Scoring_Primer_v2.pdf) - The complete technical deep-dive
 - [**Goodwill Saturation Technique**](docs/Goodwill_Saturation_Technique.pdf) - How to get negative items removed
 - [**CART Method**](docs/CART_Method_Goodwill_Letters.pdf) - Template for writing effective goodwill letters
+- [**Dispute Letter Templates**](docs/Dispute_Letter_Templates.md) - 9 templates for disputing credit report errors
 
 ---
 
