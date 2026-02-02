@@ -396,6 +396,106 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Score Simulator Styles */
+        #simulator-scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .scenario-card {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .scenario-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-impact {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .scenario-impact.good { color: var(--accent); }
+        .scenario-impact.warning { color: var(--warning); }
+        .scenario-impact.danger { color: var(--danger); }
+
+        /* Bank Rules Styles */
+        .bank-rule-card {
+            background: var(--bg);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .bank-header {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bank-header h3 {
+            margin: 0;
+            color: white;
+        }
+
+        .bank-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .bank-rules {
+            padding: 1rem;
+        }
+
+        .rule {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rule:last-child {
+            border-bottom: none;
+        }
+
+        .rule-name {
+            font-weight: 600;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .rule-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .bank-rule-card.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -414,6 +514,9 @@
             <button data-tab="derogatory">Derogatory Tracker</button>
             <button data-tab="scorecard">Scorecard Estimator</button>
             <button data-tab="reference">Quick Reference</button>
+            <button data-tab="simulator">Score Simulator</button>
+            <button data-tab="bankrules">Bank Rules</button>
+            <button data-tab="disputes">Dispute Letters</button>
             <button data-tab="settings">⚙️ Data</button>
         </div>
     </nav>
@@ -825,6 +928,538 @@
                         <tr><td>Poor</td><td>300-579</td></tr>
                     </tbody>
                 </table>
+            </div>
+        </section>
+
+        <!-- Score Simulator -->
+        <section id="simulator" class="tool-section">
+            <div class="card">
+                <h2>Score Simulator</h2>
+                <p>See the estimated impact of actions before you take them. Select a scenario to see how it might affect your score.</p>
+
+                <div class="form-group">
+                    <label>Your current estimated score range</label>
+                    <select id="sim-current-score">
+                        <option value="800">800+ (Exceptional)</option>
+                        <option value="750" selected>740-799 (Very Good)</option>
+                        <option value="700">670-739 (Good)</option>
+                        <option value="620">580-669 (Fair)</option>
+                        <option value="550">Below 580 (Poor)</option>
+                    </select>
+                </div>
+
+                <h3>What-If Scenarios</h3>
+                <p style="margin-bottom:1rem;color:var(--text-muted);">Click a scenario to see estimated impact:</p>
+
+                <div id="simulator-scenarios">
+                    <div class="scenario-card" onclick="simulateScenario('pay-utilization')">
+                        <div class="scenario-title">💳 Pay cards to &lt;9.5% utilization</div>
+                        <div class="scenario-desc">Currently over 30% utilization</div>
+                        <div class="scenario-impact good">+20 to +50 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('azeo')">
+                        <div class="scenario-title">🎯 Implement AZEO strategy</div>
+                        <div class="scenario-desc">From All-Zero or high utilization</div>
+                        <div class="scenario-impact good">+10 to +30 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('new-card')">
+                        <div class="scenario-title">💳 Open a new credit card</div>
+                        <div class="scenario-desc">Hard inquiry + new account + lower AAoA</div>
+                        <div class="scenario-impact warning">-5 to -20 points (short term)</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('close-card')">
+                        <div class="scenario-title">❌ Close oldest credit card</div>
+                        <div class="scenario-desc">Reduces available credit, may hurt AAoA later</div>
+                        <div class="scenario-impact danger">-10 to -40 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('miss-payment')">
+                        <div class="scenario-title">⚠️ Miss a payment (30 days late)</div>
+                        <div class="scenario-desc">First late payment on clean profile</div>
+                        <div class="scenario-impact danger">-60 to -110 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('collection')">
+                        <div class="scenario-title">📋 Collection added to report</div>
+                        <div class="scenario-desc">New collection account appears</div>
+                        <div class="scenario-impact danger">-50 to -100+ points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('inquiry-falloff')">
+                        <div class="scenario-title">⏰ Wait for inquiry to age (12mo)</div>
+                        <div class="scenario-desc">Hard inquiry stops affecting score</div>
+                        <div class="scenario-impact good">+5 to +15 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('derog-age')">
+                        <div class="scenario-title">📅 Negative item ages 2+ years</div>
+                        <div class="scenario-desc">Late payment or collection gets older</div>
+                        <div class="scenario-impact good">+10 to +30 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('mature-scorecard')">
+                        <div class="scenario-title">🎂 AoOA reaches 36 months</div>
+                        <div class="scenario-desc">Move to "Mature" scorecard</div>
+                        <div class="scenario-impact warning">-5 to +15 points (varies)</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('no-new-revolver')">
+                        <div class="scenario-title">🌱 AoYRA reaches 12 months</div>
+                        <div class="scenario-desc">"No New Revolver" scorecard bonus</div>
+                        <div class="scenario-impact good">+10 to +20 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('au-added')">
+                        <div class="scenario-title">👤 Added as Authorized User</div>
+                        <div class="scenario-desc">On old account with good history</div>
+                        <div class="scenario-impact good">+10 to +50 points</div>
+                    </div>
+
+                    <div class="scenario-card" onclick="simulateScenario('goodwill')">
+                        <div class="scenario-title">💌 Goodwill removal approved</div>
+                        <div class="scenario-desc">Late payment removed from report</div>
+                        <div class="scenario-impact good">+20 to +80 points</div>
+                    </div>
+                </div>
+
+                <div id="sim-result" class="results" style="display:none;margin-top:1.5rem;">
+                    <h3 id="sim-result-title"></h3>
+                    <div id="sim-result-content"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Score Impact Factors</h2>
+                <p>How much each factor typically affects your score:</p>
+
+                <table>
+                    <thead>
+                        <tr><th>Action</th><th>Typical Impact</th><th>Recovery Time</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>30-day late payment</td><td class="danger">-60 to -110</td><td>7 years to remove</td></tr>
+                        <tr><td>60-day late payment</td><td class="danger">-70 to -120</td><td>7 years (dirty scorecard)</td></tr>
+                        <tr><td>Collection account</td><td class="danger">-50 to -100+</td><td>7 years</td></tr>
+                        <tr><td>Bankruptcy (Ch.7)</td><td class="danger">-130 to -240</td><td>10 years</td></tr>
+                        <tr><td>Hard inquiry</td><td class="warning">-2 to -10</td><td>12 months</td></tr>
+                        <tr><td>New account (AAoA drop)</td><td class="warning">-5 to -15</td><td>Recovers as account ages</td></tr>
+                        <tr><td>High utilization (&gt;50%)</td><td class="danger">-20 to -50</td><td>1 billing cycle</td></tr>
+                        <tr><td>All-Zero balances</td><td class="warning">-10 to -25</td><td>1 billing cycle</td></tr>
+                        <tr><td>Closing old card</td><td class="warning">-10 to -40</td><td>Permanent AAoA impact</td></tr>
+                        <tr><td>Pay down to &lt;9.5%</td><td class="good">+15 to +50</td><td>1 billing cycle</td></tr>
+                        <tr><td>Remove collection (PFD)</td><td class="good">+20 to +100</td><td>Immediate</td></tr>
+                        <tr><td>Goodwill removal</td><td class="good">+20 to +80</td><td>Immediate</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="tip" style="margin-top:1rem;">
+                    <strong>Note:</strong> These are estimates based on community data. Actual impact varies based on your full credit profile, scorecard, and other factors. Higher scores tend to drop more from negative events.
+                </div>
+            </div>
+        </section>
+
+        <!-- Bank Rules Database -->
+        <section id="bankrules" class="tool-section">
+            <div class="card">
+                <h2>Bank Rules Database</h2>
+                <p>Known application rules, restrictions, and policies by issuer. Updated from community data points.</p>
+
+                <div class="form-group">
+                    <label>Search banks</label>
+                    <input type="text" id="bank-search" placeholder="Type to filter..." oninput="filterBanks()">
+                </div>
+
+                <div id="bank-rules-list">
+                    <!-- Chase -->
+                    <div class="bank-rule-card" data-bank="chase">
+                        <div class="bank-header">
+                            <h3>Chase</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">5/24 Rule</span>
+                                <span class="rule-desc">Denied if 5+ new cards (any issuer) in last 24 months. Applies to most cards.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">2/30 Rule</span>
+                                <span class="rule-desc">Max 2 Chase applications in 30 days.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">One Sapphire Rule</span>
+                                <span class="rule-desc">Can only hold one Sapphire card (Preferred OR Reserve, not both).</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">48-Month Sapphire Rule</span>
+                                <span class="rule-desc">Can't get Sapphire bonus if received one in last 48 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Velocity</span>
+                                <span class="rule-desc">Too many Chase cards too quickly may trigger shutdowns. Space out apps.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Soft pull for CLI via Secure Message. Usually need 6+ months account age.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- American Express -->
+                    <div class="bank-rule-card" data-bank="amex american express">
+                        <div class="bank-header">
+                            <h3>American Express</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">Once-Per-Lifetime</span>
+                                <span class="rule-desc">Welcome bonus only once ever per card. Check via CardMatch or pre-qual.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">1/5 Rule</span>
+                                <span class="rule-desc">Max 1 credit card app per 5 days.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">2/90 Rule</span>
+                                <span class="rule-desc">Max 2 credit card approvals in 90 days.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">4-5 Credit Card Limit</span>
+                                <span class="rule-desc">Most can hold 4-5 Amex credit cards (charge cards don't count).</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Pop-Up Jail</span>
+                                <span class="rule-desc">Warning popup = no bonus. Caused by not using existing Amex cards enough.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Soft pull CLI available in app/online. 3x CLI every 6 months typically.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Backdating</span>
+                                <span class="rule-desc">AUs are NOT backdated. Only your own oldest Amex account date counts.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Citi -->
+                    <div class="bank-rule-card" data-bank="citi citibank">
+                        <div class="bank-header">
+                            <h3>Citi</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">1/8 Rule</span>
+                                <span class="rule-desc">Only 1 Citi application every 8 days.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">2/65 Rule</span>
+                                <span class="rule-desc">Max 2 Citi approvals in 65 days.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">1/48 Bonus Rule</span>
+                                <span class="rule-desc">Can't get bonus on same card family if got one in last 48 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">6/6 Rule</span>
+                                <span class="rule-desc">May be denied if 6+ inquiries in last 6 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Hard pull for CLI. Request online or via phone.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Capital One -->
+                    <div class="bank-rule-card" data-bank="capital one capitalone">
+                        <div class="bank-header">
+                            <h3>Capital One</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">3 Bureaus Pull</span>
+                                <span class="rule-desc">Usually pulls all 3 bureaus (EQ, TU, EX) for applications.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">1/6 Month Rule</span>
+                                <span class="rule-desc">Generally 1 approval per 6 months. Denies if too recent.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Soft pull for CLI. Request online. May need 6+ months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Bucketing</span>
+                                <span class="rule-desc">Cards may be "bucketed" with limited growth potential based on initial approval.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Pre-Qual</span>
+                                <span class="rule-desc">Pre-qual page is soft pull and fairly accurate for approval.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Discover -->
+                    <div class="bank-rule-card" data-bank="discover">
+                        <div class="bank-header">
+                            <h3>Discover</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">1 Card Limit</span>
+                                <span class="rule-desc">Can only have 1 Discover card at a time (It or Chrome, not both).</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">12-Month Rule</span>
+                                <span class="rule-desc">Must wait 12 months after closing before new Discover card.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Soft pull for CLI. Very generous with increases.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Pre-Qual</span>
+                                <span class="rule-desc">Pre-qual is soft pull. High approval rate if pre-qualified.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank of America -->
+                    <div class="bank-rule-card" data-bank="bank of america bofa boa">
+                        <div class="bank-header">
+                            <h3>Bank of America</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">2/3/4 Rule</span>
+                                <span class="rule-desc">Max 2 cards in 30 days, 3 in 12 months, 4 in 24 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">7/12 Rule</span>
+                                <span class="rule-desc">May deny if 7+ new accounts (any bank) in last 12 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Usually soft pull for CLI online. Wait 6+ months between requests.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Relationship</span>
+                                <span class="rule-desc">Banking relationship (checking/savings) improves approval odds.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wells Fargo -->
+                    <div class="bank-rule-card" data-bank="wells fargo wellsfargo">
+                        <div class="bank-header">
+                            <h3>Wells Fargo</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">Relationship</span>
+                                <span class="rule-desc">Much easier approval with existing WF banking relationship.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Cell Phone Protection</span>
+                                <span class="rule-desc">Active Cell phone card includes cell phone protection benefit.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Usually soft pull. Request online or call.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- US Bank -->
+                    <div class="bank-rule-card" data-bank="us bank usbank">
+                        <div class="bank-header">
+                            <h3>US Bank</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">Inquiry Sensitive</span>
+                                <span class="rule-desc">Very sensitive to recent inquiries. Best with 0-1 in 6 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Relationship</span>
+                                <span class="rule-desc">Banking/checking relationship significantly helps approval.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Hard pull for CLI requests.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barclays -->
+                    <div class="bank-rule-card" data-bank="barclays">
+                        <div class="bank-header">
+                            <h3>Barclays</h3>
+                            <span class="bank-tag">Major Issuer</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">6/24 Rule</span>
+                                <span class="rule-desc">May deny if 6+ new accounts in 24 months.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Inquiry Sensitive</span>
+                                <span class="rule-desc">Prefers fewer recent inquiries. 0-2 in 6 months is best.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Usually soft pull for CLI via online account.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Synchrony -->
+                    <div class="bank-rule-card" data-bank="synchrony">
+                        <div class="bank-header">
+                            <h3>Synchrony</h3>
+                            <span class="bank-tag">Store Cards</span>
+                        </div>
+                        <div class="bank-rules">
+                            <div class="rule">
+                                <span class="rule-name">Store Card Issuer</span>
+                                <span class="rule-desc">Issues many store cards: Amazon, PayPal, Lowes, Care Credit, etc.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">Soft Pull Pre-Qual</span>
+                                <span class="rule-desc">Most Synchrony cards have soft pull pre-qualification.</span>
+                            </div>
+                            <div class="rule">
+                                <span class="rule-name">CLI</span>
+                                <span class="rule-desc">Soft pull for CLI. Request via each card's online portal.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>CLI (Credit Limit Increase) Quick Reference</h2>
+                <table>
+                    <thead>
+                        <tr><th>Bank</th><th>HP/SP</th><th>How to Request</th><th>Timing</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Chase</td><td class="good">Soft Pull</td><td>Secure Message</td><td>6+ months</td></tr>
+                        <tr><td>Amex</td><td class="good">Soft Pull</td><td>App or Website</td><td>61+ days, 3x/6mo</td></tr>
+                        <tr><td>Citi</td><td class="danger">Hard Pull</td><td>Online or Phone</td><td>6+ months</td></tr>
+                        <tr><td>Capital One</td><td class="good">Soft Pull</td><td>Online</td><td>6+ months</td></tr>
+                        <tr><td>Discover</td><td class="good">Soft Pull</td><td>Online or App</td><td>Any time</td></tr>
+                        <tr><td>Bank of America</td><td class="good">Soft Pull*</td><td>Online</td><td>6+ months</td></tr>
+                        <tr><td>Wells Fargo</td><td class="good">Soft Pull*</td><td>Online or Phone</td><td>6+ months</td></tr>
+                        <tr><td>US Bank</td><td class="danger">Hard Pull</td><td>Online or Phone</td><td>6+ months</td></tr>
+                        <tr><td>Barclays</td><td class="good">Soft Pull</td><td>Online</td><td>6+ months</td></tr>
+                        <tr><td>Synchrony</td><td class="good">Soft Pull</td><td>Card's Portal</td><td>6+ months</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">*Usually soft pull but may vary. Always confirm current policy.</p>
+            </div>
+        </section>
+
+        <!-- Dispute Letter Templates -->
+        <section id="disputes" class="tool-section">
+            <div class="card">
+                <h2>Dispute Letter Templates</h2>
+                <p>Use these templates to dispute inaccurate information on your credit reports. Only dispute items that are genuinely incorrect.</p>
+
+                <div class="tip">
+                    <strong>Important:</strong> These templates are for disputing <em>inaccurate</em> information only. Disputing accurate information is unlikely to succeed and may be considered fraud. For accurate negative items, consider goodwill letters instead.
+                </div>
+
+                <h3>Bureau Contact Information</h3>
+                <div class="grid" style="margin-bottom:1.5rem;">
+                    <div class="stat-card" style="text-align:left;padding:1rem;">
+                        <strong>Equifax</strong><br>
+                        P.O. Box 740256<br>
+                        Atlanta, GA 30348<br>
+                        <a href="https://www.equifax.com/personal/credit-report-services/credit-dispute/" target="_blank">Online Dispute</a>
+                    </div>
+                    <div class="stat-card" style="text-align:left;padding:1rem;">
+                        <strong>Experian</strong><br>
+                        P.O. Box 4500<br>
+                        Allen, TX 75013<br>
+                        <a href="https://www.experian.com/disputes/main.html" target="_blank">Online Dispute</a>
+                    </div>
+                    <div class="stat-card" style="text-align:left;padding:1rem;">
+                        <strong>TransUnion</strong><br>
+                        P.O. Box 2000<br>
+                        Chester, PA 19016<br>
+                        <a href="https://www.transunion.com/credit-disputes/dispute-your-credit" target="_blank">Online Dispute</a>
+                    </div>
+                </div>
+
+                <h3>Select a Template</h3>
+                <div class="form-group">
+                    <select id="dispute-template-select" onchange="showDisputeTemplate()">
+                        <option value="">-- Select a template --</option>
+                        <option value="not-mine">Account Not Mine (Identity Error)</option>
+                        <option value="wrong-balance">Incorrect Balance</option>
+                        <option value="wrong-status">Incorrect Account Status</option>
+                        <option value="wrong-late">Incorrect Late Payment</option>
+                        <option value="paid-collection">Paid Collection Still Showing</option>
+                        <option value="old-debt">Debt Past 7-Year Limit</option>
+                        <option value="duplicate">Duplicate Account</option>
+                        <option value="wrong-info">Incorrect Personal Information</option>
+                        <option value="unauthorized-inquiry">Unauthorized Hard Inquiry</option>
+                    </select>
+                </div>
+
+                <div id="dispute-template-container" style="display:none;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                        <h3 id="dispute-template-title">Template</h3>
+                        <button class="secondary" onclick="copyDisputeTemplate()">📋 Copy to Clipboard</button>
+                    </div>
+                    <textarea id="dispute-template-text" style="width:100%;height:400px;font-family:monospace;font-size:0.9rem;padding:1rem;border:1px solid var(--border);border-radius:6px;"></textarea>
+
+                    <div class="tip" style="margin-top:1rem;">
+                        <strong>Tips:</strong>
+                        <ul style="margin:0.5rem 0 0 1.5rem;">
+                            <li>Replace all [BRACKETED] text with your information</li>
+                            <li>Send via certified mail with return receipt (CMRRR)</li>
+                            <li>Keep copies of everything you send</li>
+                            <li>Include copies (not originals) of supporting documents</li>
+                            <li>Bureaus have 30 days to investigate (45 if you send docs)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Dispute Process Timeline</h2>
+                <div class="timeline-item">
+                    <div class="date">Day 1</div>
+                    <div class="event">Send dispute letter via certified mail (CMRRR)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">Day 3-5</div>
+                    <div class="event">Bureau receives letter, investigation begins</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">Day 5-30</div>
+                    <div class="event">Bureau contacts creditor, creditor must verify</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">Day 30-45</div>
+                    <div class="event">Bureau must complete investigation and respond</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">After Response</div>
+                    <div class="event">If not resolved: dispute directly with creditor or escalate</div>
+                </div>
             </div>
         </section>
 
@@ -1601,6 +2236,583 @@
         renderInquiries();
         renderDerogatories();
         updateStorageStatus();
+
+        // ==========================================
+        // Score Simulator
+        // ==========================================
+        const scenarioDetails = {
+            'pay-utilization': {
+                title: 'Pay Cards to <9.5% Utilization',
+                impact: '+20 to +50 points',
+                details: `
+                    <p><strong>What happens:</strong> Lowering utilization from high (30%+) to under 9.5% can have a significant positive impact.</p>
+                    <p><strong>Timeline:</strong> 1 billing cycle (when new balance reports)</p>
+                    <p><strong>Best practice:</strong></p>
+                    <ul>
+                        <li>Pay cards down BEFORE statement date</li>
+                        <li>Target <9.5% on EACH card and aggregate</li>
+                        <li>For max points, aim for <4.5%</li>
+                        <li>Don't go to $0 on ALL cards (All-Zero penalty)</li>
+                    </ul>
+                `
+            },
+            'azeo': {
+                title: 'Implement AZEO Strategy',
+                impact: '+10 to +30 points',
+                details: `
+                    <p><strong>What happens:</strong> All Zero Except One optimizes both low utilization and avoids All-Zero penalty.</p>
+                    <p><strong>Timeline:</strong> 1 billing cycle</p>
+                    <p><strong>How to do it:</strong></p>
+                    <ul>
+                        <li>Pay all cards to $0 before statement closes</li>
+                        <li>Leave ONE card with small balance ($5-50)</li>
+                        <li>That one balance reports, showing activity</li>
+                        <li>Results in very low utilization + no AZ penalty</li>
+                    </ul>
+                `
+            },
+            'new-card': {
+                title: 'Open a New Credit Card',
+                impact: '-5 to -20 points (short term)',
+                details: `
+                    <p><strong>What happens:</strong> Multiple factors combine for a short-term drop:</p>
+                    <ul>
+                        <li>Hard inquiry: -2 to -10 points</li>
+                        <li>Lower AAoA: -3 to -10 points</li>
+                        <li>New account on "New Revolver" scorecard if AoYRA drops under 12mo</li>
+                    </ul>
+                    <p><strong>Recovery:</strong> Usually recovers within 3-6 months as account ages.</p>
+                    <p><strong>Long-term benefit:</strong> More available credit = lower utilization potential.</p>
+                `
+            },
+            'close-card': {
+                title: 'Close Oldest Credit Card',
+                impact: '-10 to -40 points',
+                details: `
+                    <p><strong>What happens:</strong></p>
+                    <ul>
+                        <li>Immediate: Higher utilization (less available credit)</li>
+                        <li>Future: When card falls off report (10 years), AAoA will drop</li>
+                    </ul>
+                    <p><strong>Recommendation:</strong> Keep old cards open even if unused. Use once every 6-12 months to prevent closure.</p>
+                `
+            },
+            'miss-payment': {
+                title: 'Miss a Payment (30 Days Late)',
+                impact: '-60 to -110 points',
+                details: `
+                    <p><strong>What happens:</strong> First late payment on a clean profile causes severe damage.</p>
+                    <ul>
+                        <li>Higher starting score = bigger drop</li>
+                        <li>Remains on report for 7 years</li>
+                        <li>30-day late is serious; 60+ day late puts you on dirty scorecard</li>
+                    </ul>
+                    <p><strong>Recovery:</strong> Impact diminishes over time. Most damage in first 1-2 years.</p>
+                    <p><strong>Prevention:</strong> Set up autopay for at least minimum payment on all accounts.</p>
+                `
+            },
+            'collection': {
+                title: 'Collection Added to Report',
+                impact: '-50 to -100+ points',
+                details: `
+                    <p><strong>What happens:</strong> New collection is a serious derogatory mark.</p>
+                    <ul>
+                        <li>Puts you on "Public Record" dirty scorecard</li>
+                        <li>Remains for 7 years from date of first delinquency</li>
+                        <li>Paid vs unpaid makes little difference on Score 8</li>
+                    </ul>
+                    <p><strong>Best options:</strong></p>
+                    <ul>
+                        <li>Pay for Delete (PFD): Negotiate removal in exchange for payment</li>
+                        <li>Dispute if inaccurate</li>
+                        <li>Score 9 ignores paid collections</li>
+                    </ul>
+                `
+            },
+            'inquiry-falloff': {
+                title: 'Wait for Inquiry to Age (12 Months)',
+                impact: '+5 to +15 points',
+                details: `
+                    <p><strong>What happens:</strong> Hard inquiry stops affecting score at 12 months.</p>
+                    <ul>
+                        <li>Inquiry remains visible on report until 24-26 months</li>
+                        <li>But score impact is gone at 12 months exactly</li>
+                    </ul>
+                    <p><strong>This is "gardening":</strong> Not applying for new credit to let inquiries age off.</p>
+                `
+            },
+            'derog-age': {
+                title: 'Negative Item Ages 2+ Years',
+                impact: '+10 to +30 points',
+                details: `
+                    <p><strong>What happens:</strong> FICO weighs recent negatives more heavily. As items age, impact decreases.</p>
+                    <ul>
+                        <li>Most damage is in first 1-2 years</li>
+                        <li>At 2 years, some scorecards reassess</li>
+                        <li>Full removal at 7 years (10 for Ch.7 BK)</li>
+                    </ul>
+                    <p><strong>On dirty scorecards:</strong> You may move from "Recent" to "Mature" bucket as negatives age.</p>
+                `
+            },
+            'mature-scorecard': {
+                title: 'AoOA Reaches 36 Months',
+                impact: '-5 to +15 points (varies)',
+                details: `
+                    <p><strong>What happens:</strong> You move from "Young" to "Mature" scorecard at 36 months AoOA.</p>
+                    <ul>
+                        <li>Rebucketing can cause temporary drop</li>
+                        <li>You're now compared to people with more established credit</li>
+                        <li>Long term: This is a better scorecard with higher ceiling</li>
+                    </ul>
+                    <p><strong>Common experience:</strong> 5-15 point drop at transition, then recovery and growth.</p>
+                `
+            },
+            'no-new-revolver': {
+                title: 'AoYRA Reaches 12 Months',
+                impact: '+10 to +20 points',
+                details: `
+                    <p><strong>What happens:</strong> When your youngest revolving account hits 12 months, you move to "No New Revolver" scorecard.</p>
+                    <ul>
+                        <li>This is a scorecard segmentation bonus</li>
+                        <li>Estimated 10-20 point boost</li>
+                        <li>Opening a new card resets this</li>
+                    </ul>
+                    <p><strong>Strategy:</strong> If gardening, wait until you hit this milestone before applying for new cards.</p>
+                `
+            },
+            'au-added': {
+                title: 'Added as Authorized User',
+                impact: '+10 to +50 points',
+                details: `
+                    <p><strong>What happens:</strong> Inheriting a seasoned account's history can boost your profile.</p>
+                    <ul>
+                        <li>Works best with old accounts (5+ years)</li>
+                        <li>Must have low utilization and perfect payment history</li>
+                        <li>Some banks backdate (card appears older on your report)</li>
+                    </ul>
+                    <p><strong>Note:</strong> Amex does NOT backdate. Chase, Citi, BoA, and others typically do.</p>
+                `
+            },
+            'goodwill': {
+                title: 'Goodwill Removal Approved',
+                impact: '+20 to +80 points',
+                details: `
+                    <p><strong>What happens:</strong> Creditor agrees to remove accurate negative mark as a courtesy.</p>
+                    <ul>
+                        <li>Not guaranteed - it's a goodwill gesture</li>
+                        <li>Use the CART method for your letter</li>
+                        <li>Use Saturation Technique (multiple addresses)</li>
+                        <li>Be polite, take responsibility, explain circumstances</li>
+                    </ul>
+                    <p><strong>Impact:</strong> Removing a late payment can be huge, especially if it's keeping you on a dirty scorecard.</p>
+                `
+            }
+        };
+
+        function simulateScenario(scenario) {
+            const data = scenarioDetails[scenario];
+            if (!data) return;
+
+            document.getElementById('sim-result-title').textContent = data.title;
+            document.getElementById('sim-result-content').innerHTML = `
+                <div style="font-size:1.2rem;font-weight:600;margin-bottom:1rem;color:${data.impact.includes('+') ? 'var(--accent)' : 'var(--danger)'}">
+                    Estimated Impact: ${data.impact}
+                </div>
+                ${data.details}
+            `;
+            document.getElementById('sim-result').style.display = 'block';
+            document.getElementById('sim-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // ==========================================
+        // Bank Rules Filter
+        // ==========================================
+        function filterBanks() {
+            const query = document.getElementById('bank-search').value.toLowerCase();
+            document.querySelectorAll('.bank-rule-card').forEach(card => {
+                const bankName = card.dataset.bank || '';
+                if (bankName.includes(query) || query === '') {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // ==========================================
+        // Dispute Letter Templates
+        // ==========================================
+        const disputeTemplates = {
+            'not-mine': {
+                title: 'Account Not Mine (Identity Error)',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute of Account - Not My Account
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute the following account that appears on my credit report, as this account does not belong to me:
+
+Creditor Name: [CREDITOR NAME]
+Account Number: [ACCOUNT NUMBER]
+Reported Balance: [BALANCE]
+
+I have never opened an account with this creditor, nor have I authorized anyone to open an account on my behalf. This appears to be either a case of identity theft or a mixed credit file error.
+
+Under the Fair Credit Reporting Act (FCRA), Section 611, I request that you investigate this matter and remove this account from my credit report.
+
+Please provide me with:
+1. A copy of any application or documentation bearing my signature
+2. Proof that this account belongs to me
+3. The method of verification used
+
+Enclosed please find copies of:
+- My driver's license
+- [Additional ID if applicable]
+
+Please investigate this matter and remove this inaccurate account from my credit report. I request written confirmation of the results within 30 days as required by law.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]
+
+Enclosures: [List documents]`
+            },
+            'wrong-balance': {
+                title: 'Incorrect Balance',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute of Incorrect Balance
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute an incorrect balance being reported on the following account:
+
+Creditor Name: [CREDITOR NAME]
+Account Number: [ACCOUNT NUMBER]
+Reported Balance: [INCORRECT BALANCE]
+Correct Balance: [CORRECT BALANCE]
+
+The balance shown on my credit report is inaccurate. According to my records and recent statements from the creditor, the actual balance is [CORRECT BALANCE].
+
+Under the Fair Credit Reporting Act (FCRA), I request that you investigate this discrepancy and correct the reported balance.
+
+Enclosed please find:
+- Copy of recent statement showing correct balance
+- [Any other supporting documentation]
+
+Please update this information and provide written confirmation of the correction within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]
+
+Enclosures: [List documents]`
+            },
+            'wrong-status': {
+                title: 'Incorrect Account Status',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute of Incorrect Account Status
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute the incorrect status being reported on the following account:
+
+Creditor Name: [CREDITOR NAME]
+Account Number: [ACCOUNT NUMBER]
+Reported Status: [INCORRECT STATUS - e.g., "Charged Off", "Collection"]
+Correct Status: [CORRECT STATUS - e.g., "Paid in Full", "Closed"]
+
+This account is incorrectly showing as [INCORRECT STATUS]. According to my records, this account [EXPLANATION - e.g., "was paid in full on [DATE]" or "was closed in good standing on [DATE]"].
+
+Under the Fair Credit Reporting Act (FCRA), I request that you investigate and correct this error.
+
+Enclosed please find:
+- [Proof of payment/closure]
+- [Creditor letter if applicable]
+
+Please correct this status and provide written confirmation within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]
+
+Enclosures: [List documents]`
+            },
+            'wrong-late': {
+                title: 'Incorrect Late Payment',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute of Incorrectly Reported Late Payment
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute a late payment that is incorrectly reported on my credit file:
+
+Creditor Name: [CREDITOR NAME]
+Account Number: [ACCOUNT NUMBER]
+Date of Alleged Late Payment: [MONTH/YEAR]
+Reported Status: [e.g., "30 days late"]
+
+This late payment is inaccurate. My records show that payment was made on time. [PROVIDE BRIEF EXPLANATION - e.g., "Payment was received by the creditor on [DATE], which was before the due date of [DATE]."]
+
+Under the Fair Credit Reporting Act (FCRA), I request that you investigate this matter and remove this inaccurate late payment notation.
+
+Enclosed please find:
+- Bank statement showing payment date
+- [Cancelled check copy if applicable]
+- [Payment confirmation if applicable]
+
+Please correct this error and provide written confirmation within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]
+
+Enclosures: [List documents]`
+            },
+            'paid-collection': {
+                title: 'Paid Collection Still Showing',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute - Paid Collection Not Updated
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute the status of the following collection account:
+
+Collection Agency: [COLLECTION AGENCY NAME]
+Account Number: [ACCOUNT NUMBER]
+Original Creditor: [ORIGINAL CREDITOR]
+Current Status Shown: [e.g., "Unpaid Collection"]
+
+This collection account was paid in full on [DATE OF PAYMENT], but continues to show as unpaid on my credit report.
+
+Under the Fair Credit Reporting Act (FCRA), I request that you investigate this matter and update the account to reflect its paid status.
+
+Enclosed please find:
+- Proof of payment (receipt, cancelled check, or bank statement)
+- Paid in full letter from collection agency (if available)
+
+Please update this account and provide written confirmation within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]
+
+Enclosures: [List documents]`
+            },
+            'old-debt': {
+                title: 'Debt Past 7-Year Limit',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Request for Removal - Account Beyond Reporting Period
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to request removal of the following account which has exceeded the maximum credit reporting period:
+
+Creditor/Collection Agency: [NAME]
+Account Number: [ACCOUNT NUMBER]
+Date of First Delinquency: [DATE - must be 7+ years ago]
+
+Under the Fair Credit Reporting Act (FCRA), Section 605, negative information must be removed after 7 years from the date of first delinquency (10 years for bankruptcy).
+
+The date of first delinquency for this account was [DATE], which is more than 7 years ago. This account should no longer appear on my credit report.
+
+Please remove this outdated account immediately and provide written confirmation of its removal.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]`
+            },
+            'duplicate': {
+                title: 'Duplicate Account',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute - Duplicate Account Reporting
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute a duplicate account appearing on my credit report:
+
+Account 1: [CREDITOR NAME] - Account #[NUMBER]
+Account 2: [CREDITOR NAME] - Account #[NUMBER]
+
+These two entries refer to the same account and should only appear once. This may be due to the account being transferred, sold, or a reporting error.
+
+Under the Fair Credit Reporting Act (FCRA), I request that you investigate this matter and remove the duplicate entry.
+
+Please investigate and remove the duplicate, retaining only the accurate single entry. Provide written confirmation within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]`
+            },
+            'wrong-info': {
+                title: 'Incorrect Personal Information',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Correction of Personal Information
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to request correction of inaccurate personal information on my credit report:
+
+Information Currently Shown: [INCORRECT INFO]
+Correct Information: [CORRECT INFO]
+
+This may include:
+[ ] Incorrect name spelling: Shown as [X], should be [Y]
+[ ] Wrong address: Showing [ADDRESS] where I have never lived
+[ ] Incorrect SSN
+[ ] Wrong date of birth
+[ ] Incorrect employer
+
+Please update my personal information and provide written confirmation within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]
+
+Enclosures: Copy of ID showing correct information`
+            },
+            'unauthorized-inquiry': {
+                title: 'Unauthorized Hard Inquiry',
+                template: `[Your Name]
+[Your Address]
+[City, State ZIP]
+[Date]
+
+[Credit Bureau Name]
+[Credit Bureau Address]
+
+Re: Dispute of Unauthorized Credit Inquiry
+SSN: XXX-XX-[Last 4]
+DOB: [Your DOB]
+
+To Whom It May Concern:
+
+I am writing to dispute an unauthorized hard inquiry on my credit report:
+
+Inquiring Company: [COMPANY NAME]
+Date of Inquiry: [DATE]
+
+I did not authorize this company to access my credit report. I have not applied for credit with this company, nor have I given them permission to pull my credit.
+
+Under the Fair Credit Reporting Act (FCRA), creditors must have a permissible purpose and written authorization to access my credit file. This inquiry was made without my consent.
+
+I request that you:
+1. Investigate this unauthorized inquiry
+2. Remove it from my credit report
+3. Provide me with documentation of how this inquiry was authorized
+
+If this inquiry cannot be verified as authorized, please remove it immediately. Please provide written confirmation within 30 days.
+
+Sincerely,
+
+[Your Signature]
+[Your Printed Name]`
+            }
+        };
+
+        function showDisputeTemplate() {
+            const select = document.getElementById('dispute-template-select');
+            const templateKey = select.value;
+            const container = document.getElementById('dispute-template-container');
+
+            if (!templateKey) {
+                container.style.display = 'none';
+                return;
+            }
+
+            const template = disputeTemplates[templateKey];
+            if (template) {
+                document.getElementById('dispute-template-title').textContent = template.title;
+                document.getElementById('dispute-template-text').value = template.template;
+                container.style.display = 'block';
+            }
+        }
+
+        function copyDisputeTemplate() {
+            const textarea = document.getElementById('dispute-template-text');
+            textarea.select();
+            document.execCommand('copy');
+            alert('Template copied to clipboard!');
+        }
     </script>
 </body>
 </html>
