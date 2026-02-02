@@ -145,3 +145,11 @@ I look forward to seeing more "Data Point" contributions in the upcoming months 
 ---
 
 *This post documents the oral history of how the Credit Scoring Primer came to be, as told by one of the people who was there. It is preserved here as part of the Credit Rebels Archive.*
+
+---
+
+## Related r/CRedit Resources
+
+- **This Post (Cracking the FICO Code):** https://reddit.com/r/CRedit/comments/1q3nfaj/cracking_the_fico_code_how_we_mostly_did_it_and/
+- **Credit Myth Megathread:** https://reddit.com/r/CRedit/comments/1leii9e/credit_myth_megathread/
+- **r/CRedit FAQ Megathread:** Check the subreddit sidebar for current link

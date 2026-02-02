@@ -59,23 +59,30 @@
             display: inline-block;
         }
 
+        /* Layout wrapper */
+        .app-wrapper {
+            display: flex;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Sidebar navigation */
         nav {
+            width: 220px;
             background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 0.5rem;
+            border-right: 1px solid var(--border);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
-            z-index: 100;
-            overflow-x: auto;
-            white-space: nowrap;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
 
         nav .tabs {
             display: flex;
+            flex-direction: column;
             gap: 0.25rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 0.5rem;
         }
 
         nav button {
@@ -83,11 +90,12 @@
             border: none;
             background: transparent;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             border-radius: 6px;
             transition: all 0.2s;
-            white-space: nowrap;
+            text-align: left;
+            width: 100%;
         }
 
         nav button:hover {
@@ -100,10 +108,77 @@
             color: white;
         }
 
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
         main {
-            max-width: 1200px;
-            margin: 0 auto;
+            flex: 1;
             padding: 1.5rem;
+            max-width: 1000px;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .app-wrapper {
+                flex-direction: column;
+            }
+
+            nav {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                width: 280px;
+                height: 100vh;
+                z-index: 999;
+                transition: left 0.3s ease;
+                box-shadow: none;
+            }
+
+            nav.open {
+                left: 0;
+                box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 998;
+            }
+
+            .nav-overlay.open {
+                display: block;
+            }
+
+            main {
+                padding: 1rem;
+                padding-bottom: 5rem;
+            }
         }
 
         .tool-section {
@@ -505,24 +580,26 @@
         <div class="memorial">In Memory of Birdman (1976-2023)</div>
     </header>
 
-    <nav>
-        <div class="tabs">
-            <button class="active" data-tab="aaoa">AAoA Calculator</button>
-            <button data-tab="utilization">Utilization Optimizer</button>
-            <button data-tab="azeo">AZEO Planner</button>
-            <button data-tab="tracker">Inquiry Tracker</button>
-            <button data-tab="derogatory">Derogatory Tracker</button>
-            <button data-tab="scorecard">Scorecard Estimator</button>
-            <button data-tab="reference">Quick Reference</button>
-            <button data-tab="simulator">Score Simulator</button>
-            <button data-tab="bankrules">Bank Rules</button>
-            <button data-tab="disputes">Dispute Letters</button>
-            <button data-tab="resources">r/CRedit Resources</button>
-            <button data-tab="settings">⚙️ Data</button>
-        </div>
-    </nav>
+    <div class="nav-overlay" onclick="toggleMenu()"></div>
+    <div class="app-wrapper">
+        <nav>
+            <div class="tabs">
+                <button class="active" data-tab="aaoa">📊 AAoA Calculator</button>
+                <button data-tab="utilization">💳 Utilization</button>
+                <button data-tab="azeo">🎯 AZEO Planner</button>
+                <button data-tab="tracker">🔍 Inquiry Tracker</button>
+                <button data-tab="derogatory">⚠️ Derogatory Tracker</button>
+                <button data-tab="scorecard">📋 Scorecard Estimator</button>
+                <button data-tab="reference">📖 Quick Reference</button>
+                <button data-tab="simulator">🧮 Score Simulator</button>
+                <button data-tab="bankrules">🏦 Bank Rules</button>
+                <button data-tab="disputes">✉️ Dispute Letters</button>
+                <button data-tab="resources">💡 r/CRedit Resources</button>
+                <button data-tab="settings">⚙️ Data</button>
+            </div>
+        </nav>
 
-    <main>
+        <main>
         <!-- AAoA Calculator -->
         <section id="aaoa" class="tool-section active">
             <div class="card">
@@ -1804,6 +1881,28 @@ Sincerely,
             </div>
 
             <div class="card">
+                <h2>Key r/CRedit Posts</h2>
+                <p>Essential reading from the r/CRedit community:</p>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Post</th><th>Author</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://reddit.com/r/CRedit/comments/1leii9e/credit_myth_megathread/" target="_blank">Credit Myth Megathread</a></td>
+                            <td>BrutalBodyShots</td>
+                            <td>Comprehensive debunking of common credit myths</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://reddit.com/r/CRedit/comments/1q3nfaj/cracking_the_fico_code_how_we_mostly_did_it_and/" target="_blank">Cracking the FICO Code</a></td>
+                            <td>soonersoldier33</td>
+                            <td>History of how the Credit Scoring Primer was created</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
                 <h2>Related Subreddits</h2>
                 <ul style="margin-left:1.5rem;">
                     <li><a href="https://reddit.com/r/personalfinance" target="_blank">r/PersonalFinance</a> - General financial advice</li>
@@ -1907,7 +2006,10 @@ Sincerely,
                 </p>
             </div>
         </section>
-    </main>
+        </main>
+    </div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
     <footer>
         <p>Based on the <a href="https://github.com/Acelogic/CreditRebelsArchive">Credit Scoring Primer</a> by Birdman</p>
@@ -1915,6 +2017,12 @@ Sincerely,
     </footer>
 
     <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.querySelector('nav').classList.toggle('open');
+            document.querySelector('.nav-overlay').classList.toggle('open');
+        }
+
         // Tab Navigation
         document.querySelectorAll('nav button').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1922,6 +2030,9 @@ Sincerely,
                 document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
                 btn.classList.add('active');
                 document.getElementById(btn.dataset.tab).classList.add('active');
+                // Close mobile menu after selection
+                document.querySelector('nav').classList.remove('open');
+                document.querySelector('.nav-overlay').classList.remove('open');
             });
         });
 

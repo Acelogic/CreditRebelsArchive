@@ -285,6 +285,18 @@ Credit bureaus ask security questions to verify your identity. If you answer wro
 
 ---
 
+## Key r/CRedit Posts
+
+Essential reading from the r/CRedit community:
+
+| Post | Author | Description |
+|------|--------|-------------|
+| [Credit Myth Megathread](https://reddit.com/r/CRedit/comments/1leii9e/credit_myth_megathread/) | BrutalBodyShots | Comprehensive debunking of common credit myths |
+| [Cracking the FICO Code](https://reddit.com/r/CRedit/comments/1q3nfaj/cracking_the_fico_code_how_we_mostly_did_it_and/) | soonersoldier33 | History of how the Credit Scoring Primer was created |
+| r/CRedit FAQ Megathread | Mod Team | Check subreddit sidebar for current link |
+
+---
+
 ## Related Subreddits
 
 - [r/PersonalFinance](https://reddit.com/r/personalfinance) - General financial advice
