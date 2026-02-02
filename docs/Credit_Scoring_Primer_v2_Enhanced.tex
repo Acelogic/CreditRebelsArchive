@@ -398,100 +398,91 @@ Score 8 has \textbf{12 scorecards}: 8 clean and 4 dirty scorecards.
 \end{tabular}
 \end{table}
 
-\subsection{Scorecard Segmentation Diagram}
+\subsection{Scorecard Segmentation}
 
-Score 8 assigns you to one of \textbf{12 scorecards} based on your credit profile. The algorithm asks a series of questions to determine your scorecard:
+Score 8 assigns you to one of \textbf{12 scorecards} based on your credit profile. First, you're classified as Clean or Dirty:
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=0.85, transform shape]
-    % Styles
-    \tikzstyle{question} = [draw=primaryblue, fill=primaryblue!10, rounded corners, minimum width=3.5cm, minimum height=0.8cm, align=center, font=\small]
-    \tikzstyle{answer} = [draw, rounded corners, minimum width=2.2cm, minimum height=0.6cm, align=center, font=\footnotesize]
-    \tikzstyle{scorecard} = [draw, rounded corners, minimum width=1.8cm, minimum height=0.5cm, align=center, font=\scriptsize\bfseries]
-    \tikzstyle{label} = [font=\scriptsize\itshape, text=mediumgray]
+\begin{center}
+\begin{tikzpicture}
+    \tikzstyle{qbox} = [draw=primaryblue, fill=primaryblue!10, rounded corners, minimum width=4cm, minimum height=1cm, align=center, font=\small]
+    \tikzstyle{abox} = [draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, font=\small]
     \tikzstyle{arrow} = [draw, ->, >=stealth, thick]
 
-    % === CLEAN PATH (Left Side) ===
-    \node[question] (q1) at (-5,0) {Any 60+ day late\\in last 7 years?};
-    \node[answer, fill=successbg] (clean) at (-5,-1.5) {NO $\rightarrow$ Clean};
+    \node[qbox] (q1) at (0,0) {\textbf{Any 60+ day late}\\\textbf{in last 7 years?}};
+    \node[abox, fill=successbg] (clean) at (-3,-1.8) {\textbf{NO} $\rightarrow$ Clean};
+    \node[abox, fill=dangerbg] (dirty) at (3,-1.8) {\textbf{YES} $\rightarrow$ Dirty};
 
-    \node[question] (q2) at (-5,-3) {How many\\accounts?};
-    \node[answer, fill=lightgray] (thick) at (-7,-4.5) {4+ $\rightarrow$ Thick};
-    \node[answer, fill=lightgray] (thin) at (-3,-4.5) {<4 $\rightarrow$ Thin};
-
-    \node[question] (q3a) at (-7,-6) {Age of oldest\\account?};
-    \node[question] (q3b) at (-3,-6) {Age of oldest\\account?};
-
-    \node[answer, fill=tablerow2] (tm) at (-8.5,-7.5) {3+ yrs};
-    \node[answer, fill=tablerow2] (ty) at (-5.5,-7.5) {<3 yrs};
-    \node[answer, fill=tablerow2] (thm) at (-4.5,-7.5) {3+ yrs};
-    \node[answer, fill=tablerow2] (thy) at (-1.5,-7.5) {<3 yrs};
-
-    \node[question] (q4a) at (-8.5,-9) {New revolver\\<12 mo?};
-    \node[question] (q4b) at (-5.5,-9) {New revolver\\<12 mo?};
-    \node[question] (q4c) at (-4.5,-9) {New revolver\\<12 mo?};
-    \node[question] (q4d) at (-1.5,-9) {New revolver\\<12 mo?};
-
-    % Clean scorecards (8 total)
-    \node[scorecard, fill=successbg!40] at (-9.5,-10.5) {No};
-    \node[scorecard, fill=successbg!40] at (-7.5,-10.5) {Yes};
-    \node[scorecard, fill=successbg!40] at (-6.5,-10.5) {No};
-    \node[scorecard, fill=successbg!40] at (-4.5,-10.5) {Yes};
-    \node[scorecard, fill=successbg!40] at (-5.5,-10.5) {No};
-    \node[scorecard, fill=successbg!40] at (-3.5,-10.5) {Yes};
-    \node[scorecard, fill=successbg!40] at (-2.5,-10.5) {No};
-    \node[scorecard, fill=successbg!40] at (-0.5,-10.5) {Yes};
-
-    % === DIRTY PATH (Right Side) ===
-    \node[answer, fill=dangerbg] (dirty) at (5,-1.5) {YES $\rightarrow$ Dirty};
-
-    \node[question] (q2d) at (5,-3) {Bankruptcy, collections,\\or other public record?};
-    \node[answer, fill=lightgray] (pr) at (3.5,-4.5) {YES $\rightarrow$ PR};
-    \node[answer, fill=lightgray] (nopr) at (6.5,-4.5) {NO $\rightarrow$ No PR};
-
-    \node[question] (q3d1) at (3.5,-6) {How recent?};
-    \node[question] (q3d2) at (6.5,-6) {How recent?};
-
-    % Dirty scorecards (4 total)
-    \node[scorecard, fill=dangerbg!40] at (2.5,-7.5) {Recent};
-    \node[scorecard, fill=dangerbg!40] at (4.5,-7.5) {Mature};
-    \node[scorecard, fill=dangerbg!40] at (5.5,-7.5) {Recent};
-    \node[scorecard, fill=dangerbg!40] at (7.5,-7.5) {Mature};
-
-    % Arrows - Question 1
     \draw[arrow] (q1) -- (clean);
     \draw[arrow] (q1) -- (dirty);
-
-    % Arrows - Clean path
-    \draw[arrow] (clean) -- (q2);
-    \draw[arrow] (q2) -- (thick);
-    \draw[arrow] (q2) -- (thin);
-    \draw[arrow] (thick) -- (q3a);
-    \draw[arrow] (thin) -- (q3b);
-    \draw[arrow] (q3a) -- (tm);
-    \draw[arrow] (q3a) -- (ty);
-    \draw[arrow] (q3b) -- (thm);
-    \draw[arrow] (q3b) -- (thy);
-    \draw[arrow] (tm) -- (q4a);
-    \draw[arrow] (ty) -- (q4b);
-    \draw[arrow] (thm) -- (q4c);
-    \draw[arrow] (thy) -- (q4d);
-
-    % Arrows - Dirty path
-    \draw[arrow] (dirty) -- (q2d);
-    \draw[arrow] (q2d) -- (pr);
-    \draw[arrow] (q2d) -- (nopr);
-    \draw[arrow] (pr) -- (q3d1);
-    \draw[arrow] (nopr) -- (q3d2);
-
-    % Labels
-    \node[font=\small\bfseries, text=accentgreen] at (-5,-11.3) {8 Clean Scorecards};
-    \node[font=\small\bfseries, text=accentred] at (5,-8.3) {4 Dirty Scorecards};
-
 \end{tikzpicture}
-\caption{Score 8 Scorecard Assignment: Which of the 12 Scorecards Are You On?}
-\end{figure}
+\end{center}
+
+\subsubsection{Clean Scorecards (8 total)}
+
+If you have \textbf{no 60+ day lates}, you're on a Clean scorecard. Three more factors determine which one:
+
+\begin{table}[H]
+\centering
+\rowcolors{2}{tablerow2}{tablerow1}
+\begin{tabular}{lll}
+\toprule
+\rowcolor{tableheader}
+\textcolor{white}{\textbf{Factor}} & \textcolor{white}{\textbf{Question}} & \textcolor{white}{\textbf{Result}} \\
+\midrule
+\textbf{Thickness} & How many accounts do you have? & $\geq$4 = Thick, <4 = Thin \\
+\textbf{Maturity} & How old is your oldest account? & $\geq$3 years = Mature, <3 years = Young \\
+\textbf{New Revolver} & Any new credit card in last 12 months? & No = No New Rev, Yes = New Rev \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The 8 Clean Scorecards:}
+\begin{center}
+\small
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{successbg!30}
+\textbf{Thick + Mature} & \textbf{Thick + Young} & \textbf{Thin + Mature} & \textbf{Thin + Young} \\
+\hline
+No New Rev & No New Rev & No New Rev & No New Rev \\
+\hline
+New Rev & New Rev & New Rev & New Rev \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Dirty Scorecards (4 total)}
+
+If you have a \textbf{60+ day late or worse}, you're on a Dirty scorecard. Two factors determine which one:
+
+\begin{table}[H]
+\centering
+\rowcolors{2}{tablerow2}{tablerow1}
+\begin{tabular}{lll}
+\toprule
+\rowcolor{tableheader}
+\textcolor{white}{\textbf{Factor}} & \textcolor{white}{\textbf{Question}} & \textcolor{white}{\textbf{Result}} \\
+\midrule
+\textbf{Severity} & Bankruptcy, collections, or public record? & Yes = PR, No = No PR \\
+\textbf{Recency} & How recent is the derogatory? & Recent or Mature \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The 4 Dirty Scorecards:}
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{dangerbg!30}
+\textbf{Public Record (PR)} & \textbf{No Public Record} \\
+\hline
+PR + Recent & No PR + Recent \\
+\hline
+PR + Mature & No PR + Mature \\
+\hline
+\end{tabular}
+\end{center}
 
 \begin{warning}
 \textbf{Scorecard Reassignment (Rebucketing):} When you change scorecards, your score can boost or drop significantly. Moving to a ``higher'' scorecard often means a score \textit{drop} because you're now compared to a subpopulation with better credit profiles. Most experience a significant drop at 3 years AoOA when reassigned to a mature scorecard.
