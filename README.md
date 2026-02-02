@@ -44,7 +44,8 @@ CreditRebelsArchive/
 │   ├── CART_Method_Goodwill_Letters.pdf    # Letter writing template
 │   ├── cart_method_goodwill_letters.txt    # Plain text version
 │   ├── Dispute_Letter_Templates.md         # 9 dispute letter templates
-│   └── Reddit_CRedit_Resources.md          # r/CRedit sidebar backup
+│   ├── Reddit_CRedit_Resources.md          # r/CRedit sidebar quick reference
+│   └── Reddit_CRedit_Wiki_Backup.md        # Complete r/CRedit wiki backup
 └── tools/
     └── credit_toolkit.py                   # Full CLI toolkit (matches web app)
 ```
@@ -83,7 +84,8 @@ A free, privacy-focused web app with everything you need:
 - [**Goodwill Saturation Technique**](docs/Goodwill_Saturation_Technique.pdf) - How to get negative items removed
 - [**CART Method**](docs/CART_Method_Goodwill_Letters.pdf) - Template for writing effective goodwill letters
 - [**Dispute Letter Templates**](docs/Dispute_Letter_Templates.md) - 9 templates for disputing credit report errors
-- [**r/CRedit Resources**](docs/Reddit_CRedit_Resources.md) - Backup of r/CRedit sidebar and community resources
+- [**r/CRedit Resources**](docs/Reddit_CRedit_Resources.md) - Quick reference of r/CRedit sidebar resources
+- [**r/CRedit Wiki Backup**](docs/Reddit_CRedit_Wiki_Backup.md) - Complete backup of all r/CRedit wiki pages
 
 ---
 
