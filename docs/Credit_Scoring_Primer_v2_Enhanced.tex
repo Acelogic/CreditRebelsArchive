@@ -641,8 +641,9 @@ Individual Revolving & 30\%, 50\%, 70\%, 90\%, 100\% & \textcolor{accentgreen}{\
     \fill[red!10] (7,0) rectangle (9,1.5);
     \fill[dangerbg] (9,0) rectangle (10,0.5);
 
-    % Draw curve
-    \draw[primaryblue, very thick] (0,5.5) -- (1,5) -- (3,4) -- (5,3) -- (7,2) -- (9,1) -- (10,0.3);
+    % Draw step function (thresholds deliver full impact at crossing)
+    \draw[primaryblue, very thick]
+        (0,5.5) -- (1,5.5) -- (1,4.5) -- (3,4.5) -- (3,3.5) -- (5,3.5) -- (5,2.5) -- (7,2.5) -- (7,1.5) -- (9,1.5) -- (9,0.5) -- (10,0.5);
 
     % Labels
     \node[below] at (0.5,0) {\tiny <10\%};
