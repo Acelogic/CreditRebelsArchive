@@ -24,7 +24,7 @@ His work lives on in these pages.
 
 **Ready to optimize?** Use the [Credit Toolkit](https://acelogic.github.io/CreditRebelsArchive/)
 
-**Want the deep dive?** Read the full [Credit Scoring Primer](docs/Credit_Scoring_Primer_v2.pdf)
+**Want the deep dive?** Read the full [Credit Scoring Primer](docs/Credit_Scoring_Primer_v2_Original.pdf) or the [Enhanced Visual Edition](docs/Credit_Scoring_Primer_v2_Enhanced.pdf)
 
 ---
 
@@ -32,23 +32,28 @@ His work lives on in these pages.
 
 ```
 CreditRebelsArchive/
-├── index.html                              # Web-based Credit Toolkit
-├── README.md                               # You are here
+├── index.html                                  # Web-based Credit Toolkit
+├── README.md                                   # You are here
 ├── docs/
-│   ├── Credit_101_Beginners_Guide.md       # Simplified intro for newcomers
-│   ├── Credit_101_Beginners_Guide.pdf      # PDF version
-│   ├── Credit_Scoring_Primer_v2.pdf        # The complete technical guide
-│   ├── credit_scoring_primer.txt           # Plain text version
-│   ├── Goodwill_Saturation_Technique.pdf   # Strategy for removing late payments
-│   ├── goodwill_saturation_technique.txt   # Plain text version
-│   ├── CART_Method_Goodwill_Letters.pdf    # Letter writing template
-│   ├── cart_method_goodwill_letters.txt    # Plain text version
-│   ├── Dispute_Letter_Templates.md         # 9 dispute letter templates
-│   ├── Reddit_CRedit_Resources.md          # r/CRedit sidebar quick reference
-│   ├── Reddit_CRedit_Wiki_Backup.md        # Complete r/CRedit wiki backup
-│   └── History_of_Credit_Scoring_Primer.md # Origin story of the CSP
+│   ├── Credit_101_Beginners_Guide.md           # Simplified intro (markdown)
+│   ├── Credit_101_Beginners_Guide.pdf          # Simplified intro (visual PDF)
+│   ├── Credit_101_Beginners_Guide.tex          # LaTeX source
+│   ├── Credit_Scoring_Primer_v2_Original.pdf   # Full guide (faithful to source)
+│   ├── Credit_Scoring_Primer_v2_Original.tex   # LaTeX source
+│   ├── Credit_Scoring_Primer_v2_Enhanced.pdf   # Full guide (visual edition)
+│   ├── Credit_Scoring_Primer_v2_Enhanced.tex   # LaTeX source
+│   ├── credit_scoring_primer.txt               # Original plain text source
+│   ├── convert_to_latex.py                     # Conversion script
+│   ├── Goodwill_Saturation_Technique.pdf       # Strategy for removing late payments
+│   ├── goodwill_saturation_technique.txt       # Plain text version
+│   ├── CART_Method_Goodwill_Letters.pdf        # Letter writing template
+│   ├── cart_method_goodwill_letters.txt        # Plain text version
+│   ├── Dispute_Letter_Templates.md             # 9 dispute letter templates
+│   ├── Reddit_CRedit_Resources.md              # r/CRedit sidebar quick reference
+│   ├── Reddit_CRedit_Wiki_Backup.md            # Complete r/CRedit wiki backup
+│   └── History_of_Credit_Scoring_Primer.md     # Origin story of the CSP
 └── tools/
-    └── credit_toolkit.py                   # Full CLI toolkit (matches web app)
+    └── credit_toolkit.py                       # Full CLI toolkit (matches web app)
 ```
 
 ---
@@ -81,7 +86,8 @@ A free, privacy-focused web app with everything you need:
 - [**Credit 101 Beginner's Guide**](docs/Credit_101_Beginners_Guide.md) - Start here if you're new to credit
 
 ### Core Guides
-- [**Credit Scoring Primer v2.0**](docs/Credit_Scoring_Primer_v2.pdf) - The complete technical deep-dive
+- [**Credit Scoring Primer v2.0 (Original)**](docs/Credit_Scoring_Primer_v2_Original.pdf) - The complete technical deep-dive (faithful to source text)
+- [**Credit Scoring Primer v2.0 (Enhanced)**](docs/Credit_Scoring_Primer_v2_Enhanced.pdf) - Visual edition with diagrams, callout boxes, and improved typography
 - [**Goodwill Saturation Technique**](docs/Goodwill_Saturation_Technique.pdf) - How to get negative items removed
 - [**CART Method**](docs/CART_Method_Goodwill_Letters.pdf) - Template for writing effective goodwill letters
 - [**Dispute Letter Templates**](docs/Dispute_Letter_Templates.md) - 9 templates for disputing credit report errors

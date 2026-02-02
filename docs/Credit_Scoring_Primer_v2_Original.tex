@@ -1,0 +1,1726 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    pdftitle={Credit Scoring Primer v2.0},
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Credit Scoring Primer v2.0}
+\fancyhead[R]{\small Credit Rebels}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+\newcommand{\fico}{FICO\textsuperscript{\textregistered}}
+
+% Adjust section formatting
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Credit Scoring Primer v2.0}\\[1cm]
+\textit{In memoriam.}\\[0.5cm]
+\textbf{Birdman, Birdman7, MFBirdman7}\\
+(1976 -- 2023)\\[1cm]
+( Last Update: Friday, May 26, 2023 EDT )
+\end{center}
+
+\tableofcontents
+\newpage
+
+
+\section{Intro}
+
+
+Welcome to the best-kept secret in the credit-scoring world! If you are in-the-know, welcome back! If this is your first encounter, well brace yourself and pack a lunch! This is Version 2.0 of the already-famous Credit Scoring Primer!
+
+\fico{} algorithms play a major role in the credit world. One of their many variants of scoring algorithms is sure to play a part in your next credit attempt, so the knowledge of how to maximize that score is invaluable when seeking/using credit. Well, not many people know how to do that, though many profess to know-it-all. Well, we don't know it all and I doubt we ever will, but what we do have here has been recognized as the most accurate and comprehensive publication on \fico{} scoring available today.
+
+It's lengthy; it's detailed; and it's very complex, BUT, if you REALLY want to know how it all works, or at least as much as is known, sit back, get comfy, and pack a lunch, because this is going to be a bumpy ride. BUT, if you are committed and determined, it's gonna pay off, as it will be one of the most enlightening journeys you have ever taken. It may take MANY reads to fully understand, and you may have questions, but I warn you, this is a very addictive hobby. Many come for advice or to learn how to remediate (fix) their credit, but they find it so interesting and intriguing, and they are stuck. But, the camaraderie is like nowhere else. No matter, learn enough to remediate your credit or become a life-long Rebel, either way we welcome you to Credit Rebels and this version 2.0 of the Credit Scoring Primer!
+
+Please keep in mind the Credit Scoring Primer is composed with a very knowledgeable, technical audience in mind. To that end, please don't fret if you feel overwhelmed; there is a lot of very intricate and complicated concepts to comprehend here. Sometimes it seems you need an engineering degree to understand, lol, but, if you will take it one section at a time and read that section over and over until you get it, you will internalize it. Also working on Beginners articles. It will also help tremendously to review the Table of Contents (TOC) to better understand the flow. It is at the end, so you may want to review it first.
+
+\fico{} Score 8 select optimal Characteristic Attributes
+
+Characteristic
+Attribute
+
+Payment History
+100\%, Zero baddies. Penalty fully removed after 7 years, with few exceptions. 60D late or worse is a dirty
+scorecard.
+
+Aggregate Revolving and Installment Utilization
+<9.5\%, (or <4.5\% for both individual and aggregate revolving on some scorecards).
+
+Retail utilization and balances
+\$0
+
+Number of AWB (Accounts with a Balance)
+Recommend <20\% AWB, IMHO. Metric is weighted less in Score 8 and varies by bureau/scorecard. EX8 less
+sensitive.
+
+Number of Bankcards with a Balance (BWB)
+Under study, the lower, the better.
+
+Revolving Balance
+<\$1000 for 8/9; Never \$0 or an AZ (All Zero) loss of 10-25 points; All AUs at AZ is a separate and
+independent AZ loss on 8/9, if the AUs aren't discounted.
+
+AoOA-Oldest Account
+Not a scoring factor. Segmentation factor for clean profiles, 36 months for 8/9
+
+AoORA- Age of Oldest Revolving Account
+Scoring factor mistaken for AoOA, but if oldest account is a revolver, AoORA=AoOA. 20 years reported to max.
+
+AAoA- Average Age of Accounts
+Max award believed to be by 90 months.
+
+AAoRA- Average Age of Revolving Accounts
+Scoring factor; similar to AAoA, but revolving activity is always weighted more heavily. 9 years reported to
+max.
+
+AoYA- Age of Youngest Account
+Scoring factor on 8/9 that at times awards points at multiples of 3 months possibly.
+
+AoYRA- Age of Youngest Revolver/Open-ended Account
+Segmentation factor for clean profiles for 8/9 at 12 months; ~10-20 points.
+
+Inquiries in Last 12 Months
+Zero. Score penalty removed at 365 days. Removed from credit report between 24 and 26 months.
+
+Total Number of Accounts/Mix
+Not a scoring factor. Segmentation factor for clean profiles. 4 TLs for Thick?, include 1
+loan for diversity points. (Penalty for too few/many accts.) Revolver:Loan Ratio 3:1 or 4:1?
+
+Total Number of BCs (bankcards)
+Scoring factor. Optimal value unknown. 5-7? Loss for <3.
+
+
+\section{Where did this come from?}
+
+
+MWGardener19 had the idea for a Score 8 Master Thread. He produced an intro and a small Reddit post - "\fico{} reverse engineered" - by u/rtanaka6 who had composed it from years of reading my\fico{} forums. It had many inaccuracies and so much was missing. Birdman went crazy correcting, adding, and expanding, \& this is where it ended up: a new creation, the Credit Scoring Primer.
+
+No doubt many will have additions, corrections and criticism. Nevertheless, this is a primer and a reference, and we will update it as we learn more.
+
+
+\section{Brief background}
+
+
+Fair Issac and Company - \fico{} - states Score 8 is the most widely used credit scoring system. Score 8 is one of many models \fico{}created and lenders use to evaluate credit risk (Score 2, 3, 4, 8, 9; Bankcard 2, 3, 4, 5, 8, 9; Auto Score 2, 4, 5, 8, 9). There are more scores, and we know that at least 2 new scores are expected to begin use in 2022: Score 10 and Score 10T. 10T is unique in that it will incorporate trended data (TD) for the first time for \fico{}, who is playing catch-up to Vantage Score 4.0 that already uses TD.
+
+\fico{} began creating their systems over 60 years ago (1956). The \fico{} scoring system as we know it today is only about 30 years old (1989). \fico{} is a large, global, publicly owned company with over 4000 employees. 88\% of the \$1 billion in revenue \fico{} generates comes from banking/insurance customers. 35\% of that revenue is from international customers. Scores purchased by consumers are a small part of their business.
+
+
+\section{\fico{} scoring}
+
+
+As users of CreditRebels.net have or will come to learn, there are certain observations that can be said about \fico{} scoring:
+
+\begin{itemize}[leftmargin=*]
+    \item We have come to know GENERALLY how \fico{} scoring works
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item We have come to know A LOT about how certain aspects of scoring works
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item We have come to know that we do not know EXACTLY how all of \fico{} scoring works
+\end{itemize}
+
+FICO's approach to performing credit scoring is proprietary, meaning that it is private. The folks at \fico{} knows how their scoring systems work. The rest of us take increasingly educated guesses at learning the finer points of those scoring models, and we come to forums like CreditRebels.net to learn for ourselves how to understand, improve and manage our scores, and to help others to learn as well.
+
+The purpose of this composition is to try to capture what we know, what we think, and what we are still trying to learn more about. Because there are more than 28 different \fico{} models that exist, the guidance and answers that apply to one scoring model may be different for another model. Rather than trying to cover all of the \fico{} scores in one thread, we will focus first on Score 8, but then examine 5/4/2 and 9 to a lesser degree in their own sections.
+
+These forums have MANY VERY smart members with extraordinary depth. It is my hope and intention that we try to capture our knowledge in one thread to make it easier for forum members - new and old - to have a single stop to get the most complete understanding of what we know. Score 8 was released in 2009, but we are still learning more about it today. (Birdman: It could be argued we have learned more about the fico scores in the past 2-3 years than in the prior 20, but maybe no one was keeping track?)
+
+At a high level, Score 8, as with other \fico{}scores, is used by lenders to understand credit risk which measures how likely or unlikely it is for a prospective debtor to default on a credit obligation by 90 days in the following 24 months. \fico{} scores draw data from EQ, TU and EX to generate a score. The algorithms are unique at each bureau, as they're generated from the CRAs respective unique datasets from particular time periods. They are then subject to varying levels of customization per CRA request (Per the esteemed and very knowledgeable My\fico{} Contributor Thomas\_Thumb [TT]). Therefore, the same version's scores may vary across CRAs, since each CRA's algorithm is unique.
+
+\fico{} scores evaluate credit report data, and use very complex mathematics to calculate and report a credit risk score. (How complex, you ask? The underlying math considers Lorenz curves, Gini coefficients, normalized log Bernoulli Likelihood, multicollinearity testing, and other higher mathematics.)
+
+
+\subsection{\fico{}Score 8 key differences}
+
+
+Score 8 was designed to be more sensitive to high revolving utilization than earlier versions. It excludes nuisance collections (under \$100), and is more forgiving of isolated delinquencies compared to earlier versions, but all other accounts must be in good standing. Whereas earlier scoring versions were more customized for each specific bureau, an objective of Score 8 was to reduce disparity among the scores at the 3 bureaus. (Version 9 is supposed to have even less disparity, excludes nuisance collections and paidcollections.) You can still have a score difference of +\- 30 points on 8 among bureaus with identical data, per the esteemed and highly knowledgeable MF Moderator Emeritus Revelate.
+
+
+\subsection{So, how does scoring work in \fico{} Score 8?}
+
+
+Again, we do not know with precision. There are a number of things we've learned. As with other \fico{}models, there are 5 categories or “ingredients” which are evaluated. Your credit report data is fed into the \fico{} "blackbox" at the respective bureaus and it returns (outputs) numerical codes, and textual reason statements, which are listed in order of precedence and can offer insight into your score from any version. \fico{}Score 8 ratings and scores are:
+
+Rating
+Score Range
+
+Exceptional
+800 - 850
+
+Very good
+740 - 799
+
+Good
+670 - 739
+
+Fair
+580 - 669
+
+Poor
+300 - 579
+
+The categories/ingredients that are evaluated from your credit report, and their typical weightings are:
+
+1.
+
+Payment History
+
+35\%
+
+2.
+
+Amount of Debt
+
+30\%
+
+3.
+
+Length of History
+
+15\%
+
+4.
+
+New Credit
+
+10\%
+
+5.
+
+Credit Mix
+
+10\%
+
+MWGardener19's edited work ends here.
+Begin Birdman's labor:
+
+Remember that credit scores are connected with approvals, but are often not the only factor.
+
+Inquiries are used to: 1) generate a score and reason codes/statements, 2) analyze your credit data, and 3) give notice to other lenders you have sought credit.
+
+This information is used to determine approvals, interest rates, terms, starting credit lines, and to permit a lender to follow law (by supplying them with pre-made/pre-screened by legal “reasons” for denial or giving less than the best terms to a customer). Keep in mind a lender must give a reason when you are denied or receive less than the most favorable terms available for a product. Credit scores matter, but are not the sole reason or consideration. Lenders will also ask for data not contained in CR data to consider as well, such as income and housing expenses. Please note income is not reported to the bureaus and is not a part of scoring. Lenders consider that separately. By law, neither race, color, religion, nor creed may be considered.
+
+
+\section{Scorecard Basics}
+
+
+There are various metrics within each category. \fico{}calls each metric a “characteristic”, and the corresponding value is called an "attribute." To be more granular, I break characteristics into 2 categories: “segmentation factors” and “scoring factors”. Segmentation factors determine scorecard. Scoring factors directly affect score and their signal strength (weighting) varies by scorecard. Scorecards are algorithms by their simplest definition. The scorecards generate a score and reason codes from the CR data it is fed based on the scoring factors weighted as dictated by the scorecard.
+
+Score 8 has 12 scorecards: 8 clean and 4 dirty scorecards. Which scorecard you are assigned to depends on the segmentationfactors. For clean profiles, these segmentation factors are thick/thin (number of accounts); mature/young (age of oldest account); and no new revolver/new revolver (recency of new revolvers). For dirty profiles, I believe the segmentation factors are severity and recency: PR/No PR and mature/recent.
+
+Scorecard assignment is a complex matter to be covered elsewhere. What is important to know about scorecards is that they impact how your specific score responds to information in your credit report, and they are why your profile reacts differently than someone else's for the same event. The scorecard to which you are assigned determines your minimum and maximum scores, which reason codes are applicable to you, and the signal strength (weighting) for the various scoring metrics.
+
+Each scorecard is geared to groups of specific credit profiles. Scorecard reassignment (rebucketing) occurs when you change scorecards. This can result in a score boost or drop depending on the situation. For instance, when you go to a higher scorecard, you are basically moving from the top of one ladder to the bottom of another and would now be compared to a subpopulation typically with better credit profiles. Therefore, often you will see a score drop. The reverse also holds true, but be aware there are many exceptions and scorecard theory is complex. For example, most experience a significant drop at 3 years AoOA, when reassigned to a mature scorecard.
+
+What follows is an example of how different scoring factors have differing signal strengths depending on scorecard:
+
+A scorecard example for Payment History, Amounts Owed, Length of History, New Credit, and Mix follow. Keep in mind, awards vary by profile, and there is far more than 1 scoring factor per category:
+
+Again, there are 12 cards in Score 8. (Rumors of 14 are false, 2 were pulled over AU issues.) There are 8 clean and 4 dirty scorecards. Clean/Dirty is the first segmentation factor and determines the subsequent segmentation factor path. A clean profile is then segmented by: Thick/Thin, Mature/Young and then No New Revolver/New Revolver. (For the Mortgage Scores, the last segmentation factors are different. We will go over these in more detail as we progress through the categories.
+
+If instead a profile is dirty (has at least one 60-day late or worse), we are not as clear. I believe the profile is then segmented into a PR (public record) card, or a delinquency (No PR) card, which is “severity”. Then, further segmented into a recent or mature card, which is recency.
+
+PR cards include profiles with collections, bankruptcy, foreclosures, garnishments or other public records, such as tax liens (delinquencies are subsumed). A judgment would also put one there, but they are no longer reported due to a consent decree. Delinquency cards have all other dirty profiles with at least one 60 day late, but no PR.
+
+The below is my approximation of how the scorecards in \fico{} 8 are segmented:
+
+For delinquencies (not collections), if unpaid, recency appears to go from the date of last update. If paid, recency appears to go from the date paid in full or settled. Therefore, once paid or settled, TPOD (total period of delinquency) appears to be frozen, therefore recency should be as well.
+
+(Version 9 added a 13th scorecard for those with high revolving utilization. The specifics of how it works or what segments you there are not yet known, just that it is for those with high revolving utilization.) (The '98 and '04 versions had different numbers and segmentation.)
+
+We will now examine each Category and its segmentation and scoring factors in detail, sequentially, in sections 1-5, below. I will use the terminology 'segmentation factors' and 'scoring factors,' since it's more granular than the generic term characteristic, which doesn't indicate whether it's for segmentation or scoring.
+
+
+\section{1. PAYMENT HISTORY CATEGORY (Clean/Dirty)}
+
+
+35\% - ~192.5 points
+
+7 components make up Payment History:
+
+\begin{itemize}[leftmargin=*]
+    \item Payment information on all tradelines (credit cards, retail accounts, installment loans, mortgages, and other types of accounts)
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item How overdue delinquent payments are today or may have become in the past (Severity)
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Amount of money still owed on delinquent accounts or collection items
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Number of past due items on credit report Adverse public records (e.g., bankruptcies) (Frequency)
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Amount of time that's passed since delinquencies, adverse public records or collection items were introduced (Recency)
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Number of accounts being paid as agreed. Link.
+\end{itemize}
+
+
+\subsection{A. Derogatory Categories}
+
+
+This is the most important category, and there can be no derogatories on your file for maximum scoring in this category. The algorithm looks for delinquencies, late payments (30, 60, 90, 120), charge-offs, collections, bankruptcy, foreclosures, repos, CFAs (consumer finance accounts), tax liens, or in Version 9, LM (loan modification, code AC) Link. etc.. Ideal is none. For one isolated 30 day late, you will still wear a significant penalty.
+
+A 60-day late is considered a major derogatory and will segment you into a dirty scorecard for 7 years on Score 8. (It appears a 60-day late only assigns you to a dirty card for 2 years on TU4 per testing by the esteemed My\fico{} Moderator Emeritus Revelate Link. Appears to be confirmed for EX2 as well, by My\fico{} Contributor Ficoproblems247 Posts 10 and 17.  Also, there is evidence EQ5 segments delinquencies at 2 years. Link. Note: the "new account" negative reason code only appears on clean cards in the Classic scores.)
+
+Creditors typically report a debtor 30, 60, 90, 120 days late and then the account may be chargedoff (CO). (CO is typical at 120 days for loans and at 180 days for CCs. [See link in Post 7.]) A CO does not mean the debt is no longer owed/collectable, just that it isn't expected to be collected and has been removed from the asset column of the creditor's balance sheet. At this point, the account is closed if it hasn't already been. If the account still has a balance and is owned by the OC (Original Creditor), the TL (tradeline) will reflect the outstanding balance.
+
+Please note a CO is an accounting measure and may not have a direct effect on your score. The score loss appears to be tied to the TPOD (total period of delinquency) Link, which, if unpaid is from the DOFD (date of first delinquency) until the last update, or from DOFD until paid, if unpaid. That's why when an unpaid CO is regularly updated, the score continues to be suppressed, but if not regularly updated, it does not. Also why if you pay it way later when it hasn't been updating, you typically see a drop.
+
+If you have paid the balance on a charge-off or subsequently do so, the TL should be updated to reflect the \$0 balance and to change the Current Status from CO to 'paid' or to 'paid, settled for less.' If the debt is sold, the balance should also be updated to \$0. These situations will affect utilization, see Section B, Amount of Debt and Payment History (TPOD) see Section C. 1., Aging, below.
+
+
+\subsection{B. Collections/CA (Collection Authority)/Dunning Notice/DV (Debt Validation)}
+
+
+If you fail to pay a debt after CO, it could be assigned or sold to a CA (Collections Authority). This is a separate and additional special TL that only affects the PH category. It is in addition to the OC’s TL and causes additional penalty and scorecard reassignment to a PR card, if you had no PRs prior to it. (Note: all OC’s don’t report a OC TL, such as cable/phone, but a CA can still appear and penalize even without a corresponding OC TL..)
+
+Upon 'initial communication,' a CA is required to notify you in writing within 5 days of your DV (debt validation) rights. (This may be included in initial communication and is called a Dunning Notice.) You have 30 days to request DV. It should be sent CMRRR (certified mail return receipt requested). Until and unless the CA responds, the CA is under a 'cease contact bar.' In other words, CA is barred/prohibited from contacting you, except for filing judicial process, etc...
+
+If the CA fails to respond or cannot validate the debt, CA may delete the collection. If not, you may seek removal via dispute with the CRAs, but beware, CA had no duty to respond. Your dispute may result in an update that drops your score, if it was not already updating regularly. I'd think twice before I dispute valid info that hadn't been updated in a while. They update and the score drops - not what most desire - so proceed carefully.
+
+Nevertheless, if you let the 30 days pass from the Dunning Notice without submitting a DV, you still may send one, but the CA is not required to respond and is not barred from contacting you.
+
+Remember, a DV does not force a CA to delete like everyone preaches. It simply imposes a 'cease contact bar' upon CA until and unless they respond, that's it! If they don't respond, it doesn't mean they can't validate. I mean, that may be the reason, but so could many others, so don't assume you have the upper hand because a CA fails to respond to a DV.
+
+If the debt is sold to a CA, the OC TL balance should be updated to \$0; if assigned, the balance should remain on the OC TL, as well as be listed in the separate and additional CA TL. But, be aware that if an OC’s TL is assigned to a CA, the CA is required to delete the collection TL, IF the debt is recalled by the OC. So, one great method of dealing with a collection is to attempt to negotiate with OC and have the OC recall it. You must have OC recall the debt prior to paying OC or else CA's authority will not have been terminated and CA will not have to delete. If and when OC recalls the debt, it will require deletion of the collection by CA, even though the OC’s CO TL may remain and be updated. To address the remaining the CO, see our Goodwill Saturation Technique.
+
+However, if the OC TL is sold to a CA, then you must negotiate with the CA and the preferred course of action is to request a PFD (Pay for Delete) from the CA, which is where you negotiate with the hope of paying in return for deletion. Be aware this is against CRA policy and CAs may refuse; however, some will accommodate under various interpretations. It is common for a CA to be reluctant to put it in writing for obvious reasons. It's noteworthy that oral contracts are enforceable; they're just hard to prove if denied. Laws on recording phone calls vary by state, some require the other party be notified, some only require one party to be aware. Consult counsel/law in your jurisdiction.  Link. Also a list of CAs that do PFDs is around somewhere.
+
+For collections (CAs), "[a]s far as your \fico{} Score is concerned, two things are considered:
+
+\begin{itemize}[leftmargin=*]
+    \item has a collections appeared on your credit report and
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item when it was reported" Link.
+\end{itemize}
+
+So, whether or not it's paid is not even a consideration, scorewise til 9! But it looks better to prospective lenders if paid, even if late. See Aging below.
+
+
+\subsection{C. Derogatory Aging}
+
+
+
+\subsubsection{i. Scoring}
+
+
+It is believed delinquency penalty is reduced at 6, 12, \& 18 months for 30, 60, 90 and 120 day lates, but all baddies will affect score for 7 years. Recency and frequency of baddies plays a critical role. The change at 2 years appears to be scorecard reassignment, which may also apply to charge-offs.
+
+Link to derogatory aging graph. (Credit: my\fico{} Contributor ABCD2199.)
+
+COs can be tricky. They are not like lates subsequently brought current, where the TPOD remains constant at 30, 60, 90, or 120. With a CO, TPOD continues to grow and suppress scores until it's paid, if regularly updated. If instead an OC fails to regularly update the OC TL, the algorithm doesn't know the delinquency period has grown, so TPOD is frozen and no further score suppression occurs; however, if the TL is updated at some later time, the algorithm realizes TPOD has increased and you may be penalized appropriately to catch up, (TPOD catchup penalty) Link. Link. Link. (Credit: The esteemed My\fico{} Legendary Contributor RobertEG.) This typically occurs when someone pays an old late, only to be surprised by a score ding. Could also occur when updated by a sale to a CA, when paying a CA where the debt was assigned, or from a dispute updating the delinquency, if the TL was not regularly updating. However, this drop can be offset or outweighed by changes in utilization or other changes.
+
+There are 3 separate fields that are relevant: Payment Status, Current Status Link, and Date Updated. (Credit: The esteemed My\fico{} Legendary Contributor RobertEG.) Payment Status shows the highest level of delinquency that has ever occurred on the account (30-CO), Current Status shows the current status, whether 'CO', 'paid', or 'paid, settled for less,' and Date Updated is obvious.
+
+When a charge-off is regularly updated (Date Updated Field), it continues to suppress scores because the TPOD is increasing, similar to going from a 30 to 60. Because the Current Status field remains CO, the algorithm knows it is still delinquent through the last update and calculates increasing TPOD (Date Updated Field - DOFD) and penalizes appropriately. Thresholds, if applicable, are not known. If the Date Updated field is not updated, the algorithm cannot determine TPOD has increased and therefore can't further suppress/penalize scores. (Be happy when they aren't updating, but know you may eventually pay the piper.)
+
+When an update does occur, the OC updates the Date Updated field and TPOD is increased, if Current Status is still CO. Updates typically occur due to updating the Current Status field to paid or paid settled for less, or from a dispute, as stated above.Once paid, subsequent disputes should not cause dings because Current Status is paid and TPOD is therefore frozen. (Once a CO is paid, one can try the GST in hopes of having the OC remove the lates/account. Can't hurt, but might take 100 tries! Persistence.)
+
+CAs are different and do not appear to help score if you pay them, only if they are deleted or age to some unknown threshold (PR scorecard recent > mature 2 yr?). "Your score weighs collections on your credit report according to when the collection occurred. Generally, the more recent the collection, the more it's going to hurt your \fico{} Score."  Link. So over time, a collection appears to reduce its penalty. Recency is determined from when it "occurred."
+
+I believe "occurred" means opened, not updated. (Some think if regularly updated, it can't age to a mature PR card to lessen the penalty, but an  MF blog says paying a CA in version 8 and older lacks positive scoring impact, so color me skeptical.)
+
+Tax Liens and BKs, etc should also reduce penalty over time when you shift out of the recent PR scorecard into the mature PR scorecard (believed to switch scorecards at 5 years on the mortgage scores). Judgments are no longer reported, but that could always change.
+
+
+\subsubsection{ii. Derogatory Removal}
+
+
+Regarding removal, the (FCRA) Fair Credit Reporting Act, §605(a) applies (15 USC § 1681c). (PDF Target Link, (page 24 by page in browser, 21 by PDF - May 18, 2023.)
+
+For open accounts, scattered lates are treated differently than strings of lates. With scattered lates, they are each removed at 7 years individually. With strings, it depends on bureau. "...Experian...excludes...delinquencies in a common “string”...at 7 years from [DOFD]...[t]he other two CRAs have no official, published policy interpretation, and have...excluded based on [DOFD] OR have treated each...delinquency as its own separate adverse item of information, and thus have not excluded...until each has reached...7 years..." [1] Link. Link 2. The particular subsection for monthlies is a catch-all provision and lacks specificity. §605(a)(5), FCRA. Please note US Gov't insured/guaranteed student loans or national direct student loans have specially lengthened reporting periods. See sections 430A(f) and 463(c)(3) of the Higher Education Act of 1965, 20 U.S.C. 1080a(f) and 20 U.S.C. 1087cc(c)(3), respectively.
+
+CRAs are prohibited from making CRs with accounts placed for collections or charged to profit and loss which antedate the report by more than 7 years. See §605(a)(4) \& (c)(1), FCRA. In New York, a law precludes CRAs from including CO \& CA accounts older than 5 years! (Lucky New Yorkers!)
+
+Chargedoff/Collection accounts are supposed to be removed at 7 years. Link. But at Experian, if they are not currently delinquent, they will remain, just without charge-off notation. If they're still delinquent/unpaid, the entire account will be removed. The lates will age off, but the account may remain for up to 10 years, but from update or closure? See: link. How do CAs determine DOFD?  Link.
+
+Paid tax liens are removed at 7 years from payment. §605(a)(3), FCRA. Bankruptcy is removed 10 years from date of entry of the order for relief or the date of adjudication. §605(a)(1), FCRA.
+
+Early exclusion:  link.
+
+
+\subsubsection{iii. CR Removal Quick Reference}
+
+
+So, §605(a)(1): BK - 10 years from order/adjudication
+
+(3): Paid Tax Liens - 7 years from payment
+
+(4): COs and CAs - 7.5 years from DOFD/7 years from CO/Collection; 5 yrs NY Link.
+
+(5): Catch-all for any/all other negative information - 7 years (starting date ambiguous).
+
+
+\subsubsection{iv. Judicial SOL (Statute of Limitations, varies by state)}
+
+
+Note: Whether a debt is judicially actionable is based on the state's SOL (Statute of Limitations) in the jurisdictions where the creditor could sue the debtor (Plaintiff has choice of forum with limited exceptions). This could be: 1. state the creditor is incorporated/organized in, 2. state you entered into the agreement in, 3. your home state, or, 4. if you have moved, your new home state. (Consult qualified counsel, Conflict of Laws and Jurisdictional Law are complex and beyond the scope of this thread and forum.) This 'Right of Action' SOL is separate and distinct from the federal exclusionary rule that determines how long negative data may be reported by the CRAs, which is the above time periods per the FCRA.
+
+Apparently New York also has a borrowing statute that can limit OCs and CAs to the SOLs of the OC's home state. CPLR 202, Portfolio Recovery Associates v. King. This may be why many creditors don't come after New Yorkers' after 3 years. They are all headquartered in Delaware where the SOL is 3 years!
+
+
+\subsection{D. Amount Still Owed on Delinquent Accounts}
+
+
+The amount owed on delinquent accounts is factored into the Payment History category. So once an account is delinquent, the amount may be considered under the Payment History category as well as the Amounts Owed category. However, maybe not. A MF article says amount owed on CAs are considered, and we know that paying a CA without deletion offers no points. The only way I can reconcile this is if the initial penalty is determined in part from the CA amount.
+
+At 2 years sleeping, charge-offs may be taken out of revolving utilization and only accounted for by the Payment History category.  Link.
+
+
+\subsection{E. Multiple Delinquency Penalty}
+
+
+TU8 and EX8 are more forgiving of an isolated late. With frequency, there may be an additional penalty. However, 800s are possible with a 60 day late.
+
+
+\subsection{F. Recency}
+
+
+Score 8 seems to penalizes more for recent delinquencies/derogatories. Probably due to the 2 new dirty scorecards I believe segment based on recency. (5-4-2 appears to reassign to clean cards with penalties @ 2 years for some lates.)
+
+EQ8 42 month threshold on missed payment, link.
+
+
+\subsection{G. Number of Accounts Paid as Agreed}
+
+
+The Payment History category needs a certain amount of data to score most accurately. A variety of at least 6 positive accounts, actively reporting paid as agreed, seems to be the minimum without a loss. Since the algorithm is considering length and depth of payment history, the code is more likely to appear on young/thin files or those lacking Mix diversity. Link.Link.
+
+
+\section{2. AMOUNT OF DEBT CATEGORY}
+
+
+30\% - ~165 points
+
+ccquest has created an awesome Excel sheet that will calculate utilization, balances and ages easily for you at Link.
+
+
+\subsection{A. Utilization}
+
+
+Utilization metrics are scoring factors.
+
+
+\subsubsection{1. Revolving}
+
+
+i. The major recognized Aggregate revolving utilization thresholds are believed to occur at5\%,10\%, 30\%, 50\%, 70\%, 90\%, and 100\% (It's possible some scorecards could also have other thresholds.)
+
+ii. The major recognized Individual revolving utilization thresholds are believed to occur at 30\%, 50\%, 70\%, 90\%, and 100\% (Some scorecards may also have lower thresholds.) (Individual Utilization is calculated from reported balance, which is not always the same as statement balance.)
+
+For max points, you should remain under the lowest thresholds. As you go up, penalties are assessed, more per threshold for aggregate than individual. Typical rounding is used, e.g., you should be able to have a 9.4\% balance without going to the next interval of 10\% - 29\%, but 9.5\% = 10\%. See the chart below for a graphical example of the effects of aggregate revolving utilization:
+
+PLOCs should factor as revolvers, but true chargecards are not revolvers for purposes of the Amounts Owed category. (But true chargecards are for Mix.) Link.
+
+HELOCs should factor as revolvers on Score 2/3, if they are below the revolver dollar cutoff. However, HELOCS don't appear to factor on 5/4 (there were rumors of an update, funny how it factors on 3). On 8/9, HELOCS factor separately and as a ratio of HELOC balances to aggregate revolver balances in version 8 at TU and EX. See Codes 62 and 64.
+
+Also know that EQ8 additionally tracks bank/national revolving account utilization without other revolving accounts (Code 89) and then other revolving utilization separately (Code 90). Version 9 distinguishes between credit cards and revolvers.
+
+2.Loans
+
+- One metric of loan utilization is aggregate loan utilization of all open loans (current total
+balances divided by the total original loan amounts) The largest threshold (biggest point award) comes when B/L is
+<9.5\% B/L. (Updated to 9.5\% based on new knowledge from \fico{} experts.) This was
+discovered by the esteemed MF Moderator Emeritus Revelate
+Original
+thread and his strategy devised is worth 15-35 points (credit to My\fico{}
+Contributor Saeren for top end of range of 35 points on an SSL.). See
+SSLT
+thread for detailed information. A smaller award is believed to have a threshold ~65\%.
+Link.
+Changes seen at other suspected thresholds are believed to be due to changes in total installment balances or
+possibly minor thresholds? There's also a report of a loan threshold ~88\% from MF Mod Remedios.
+
+Long story short, get a long-term loan, pay it down to <9.5\%, and do a small amount of auto-pay for activity.
+Catch is, it requires a FI that doesn't advance the maturity date and won't work if you have other loans, as
+installment utilization is based on the aggregate.
+
+Here
+is a detailed post from May 2020 of a member going through the process of acquiring an SSL and executing the
+strategy at Navy. SSLs are/were available at Navy NASA FCU (link in post 7), and SSFCU, and PLs (Personal Loans)
+are believed to work at Alliant and WF (3k min, \$75 fee).
+PenFed? There are others and these may change.
+
+-Be aware that while paying aggregate loan utilization to <9.5\% gives a nice award, there is
+also evidence that time open can offer points for installment loans [2]. (Credit: Thomas\_Thumb)
+
+Another great discussion of the intricacies of loan utilization by the esteemed Thomas\_Thumb:Link.
+
+It appears all 3 look at aggregate loan utilization while EX and TU also track individually mortgage, auto, and
+HELOC utilization, as well as a special HELOC balance to revolving
+balance utilization.
+
+
+\subsection{B. Number of Accounts Reporting a Balance/AZEO}
+
+
+The number of accounts reporting a balance impacts score independent of utilization. The higher the number of accounts with a balance, the higher the penalty. (Only at EQ8, the number of bank/national revolving accounts with balances is also a separate scoring factor. Code 23.) Number of accounts reporting a balance is not as heavily weighted on Classic 8, and less so on EX8. Ex.:
+
+Credit: Thomas\_Thumb
+
+This metric is much more influential for the mortgages scores (especially EX2), which is believed to have lower
+thresholds.
+
+There was debate whether the account metric thresholds were raw numbers or percentages. According to
+\fico{} experts, it can be either/both. They implied it could be a number on thin/young
+scorecards and a percentage on thick/old scorecards or ?
+Link.
+
+Many people think Score 8 has a 33\%, a 50\%, and maybe a 80\% or 100\% threshold for this metric as
+a percentage rather than number. Well, there appears to beone at 20\% on EQ8,
+link,
+(the weighting may vary by bureau) and the mortgage scores, and I have seen too much evidence of the 100\%
+threshold.
+
+There could be 20\%, 40\%, 60\%, 80\%, and 100\% thresholds or 20\%, 50\%, and 100\%. More testing is advised and
+hopefully other members can add data for the thresholds. (My\fico{} Contributor Trudy's dps
+lead us to discover this metric includes closed revolvers on EX2.
+See
+link.
+Confirmed.
+We must still determine whether it is applies to Score 5/4/3/8/9.)
+
+No matter how many revolvers you have, if you only have only one report a balance, then you will be at the lowest
+possible number/percentage that your profile will allow. (You can't change the fact a loan has a balance,
+so you can trigger too many AWB if you have too many loans.)
+
+This has given rise to the infamous AZEO (All Zero Except One) concept. You will often hear this recommended,
+especially for mortgage scores. It doesn't mean you have to only let one revolver report a balance to be at your
+best scores, but it guarantees you will be below the lowest threshold possible for your profile for these metrics
+(which may or may not be one revolver).
+
+Additionally, I recommend AZEO as a small balance (<4.5\% of CL) on one national bankcard with a CL of \$30,000 or
+less. This actually potentially optimizes 3 or more metrics. Number of AWB, revolving utilization, and the
+revolving balance metric(s).
+
+So, it’s a easy way to give good advice to achieve the best scores, but you may be able to have several revolvers
+with small balances report and still be at your best scores. You just have to test your individual profile. Also,
+you don't have to pay interest, just pay after it reports, but before the due date.
+
+A note of caution about your AZEO card. Use a national bankcard with a CL no higher than \$30,000, because the
+mortgage scores exclude cards with higher credit limits.
+(Credit: Our forum
+member, Justaguy, who first discovered this.) Avoid retail cards, credit union cards, and
+charge cards, as they can cause unintended consequences.
+
+Typically the more revolvers you have, the more you can have with a balance and still be at your best score. This
+author recommends at least 5 revolvers at AZEO, 1 loan with B/L <9.5\%, and no inquiries and no new accounts in the
+last 12 months for reaching your best scores on Score 8. Also noteworthy, this is a metric that is more reactive
+on TU and EQ. Many report no changes at EX.
+
+While not counting towards revolving utilization (except on EX2, where the high balance is used as the CL), true
+charge cards (American Express charge card) do count toward one's number/percentage of AWB metric in Score 8. The
+reason true charge cards are not advised as your AZEO card is next.
+
+
+\subsection{C. All Zero Point Loss- (AU Test included)}
+
+
+When all revolvers report \$0 balance (AZ), there is a loss of ~10-20 points. If one has AU cards (that are not discounted by the anti-abuse algorithm) and they all report \$0 balances, an independent AU AZ point loss will also occur.(A retail card used for AZEO seems to give a partial AZ loss.) EQ8 may penalize for a retail balance? maybe EX?
+
+This allows one to test whether AU cards are being discounted by the anti-abuse portion of the algorithm on versions 8 \& 9. (\fico{} included this to address TL renting.) Have all AU accounts report \$0 and see if you experience a loss. When an AU reports a balance, the points should return. If it does, it's counting. If not, it's discounted for 8 and 9, but will still count for the mortgage scores, as that part of the algorithm didn't exist back then, so they always count for mortgage scores, although lenders realize the score is artificially inflated.
+
+To avoid AZ loss and maximize scores, many people use AZEO, where only 1 national bankcard (and 1 AU BC, if applicable and not discounted for Scores 8/9) reports a small balance \$5-\$20. This AZ loss is a frequent post of why did I lose 15 points?
+
+Charge cards are not revolvers and will not save you from AZ losses. Correct, they count for number of AWB, but
+will not prevent AZ loss. That's because the AZ metrics are based on revolving balance, not
+revolving utilization as many believe.
+
+Oh yeah, be careful if you use Chase as an AZEO card and pay it to \$0. They automatically off-cycle update \$0 balances, so it can cause an unintentional AZ loss. However, they can also be the perfect AZEO card as long as you leave a couple dollars when making payment! Also convenient if another card accidentally reports, as Chase will always report the \$0, don't even have to ask. Actually great for testing to me!
+
+D. COs
+
+The exact mechanisms of how unpaid COs affect utilization are currently under study.We do think an unpaid charge-off has an effect on utilization. We're just trying to confirm and understand it.
+
+Charge-offs with balances were considered maxed out cards by common wisdom, but this does not appear to be
+correct. Further study is ongoing and data points are appreciated!
+
+At two years sleeping, COs may be taken out of revolving utilization and only penalized for by the Payment History category.  Link.
+See section A for other possible effects due to Payment History.
+
+E. Revolving Balance Metrics-Aggregate and ABORT
+
+We don't know where all the thresholds are, but we do know score is influenced by the aggregate balances on
+revolvers.
+
+At EQ8, Amount owed on bank/national revolving accounts is additionally tracked. Code 66.TU and EX
+additionally track mortgage and installment balances separately where EQ doesn't track them at all. TU does not
+separately track retail balances while the others do. Revolving balances are weighted less heavily than revolving
+utilization.
+
+Consequently those with very large TCL's may see score changes from the balance metric and mistake them for
+utilization because 1\% for them may be \$5,000 or \$10,000 or more.
+
+Average Balance on Revolving TLs (ABORT) also appears to be a scoring metric from \fico{}
+slides (not sure if it applies to all versions). An average balance under \$100 but above \$0 appears to be optimal,
+if the slide is believed to be accurate.
+
+F. Loan Balance Metrics
+
+The amounts owed on mortgage, open mortgage, and installment loans are considered at TU and EX. Apparently not at EQ; it relies on loan utilization I guess.
+
+G. Credit Account Balances Metric
+
+Revolving, open-ended, plus non-mortgage loans are included. All bureaus consider this, but we're not sure if
+all versions do. Notice the estimator asks for this data.
+
+
+\section{3. CREDIT HISTORY LENGTH (Mature/Young)}
+
+
+15\% - ~82.5 points 
+
+Aging related point changes occur on the first of the month. No matter what day an account was opened, it was considered opened the first day of the month in which it was opened by the \fico{} algorithm. So adjust your opening dates accordingly to generate accurate metrics.
+
+Cassie has provided an easy rule for us to follow to determine whether an aging metric may have possibly
+contributed to a score change: Convert age to months and if the number is evenly divisible by 3, the metric is
+suspect: Cassie's Rule of 3.
+
+There are many aging-related Scoring Factor (characteristic) pairs inexplicably intertwined as evidenced by being conjoined in reason codes. The most influential, besides the famous first pair, are those related to revolvers (with the exception of the new RBC metric that I believe is influential on 9.) I've tried to list them somewhat in an order of guessed influence, but don't bet on my guess:
+
+A. AoOA and AAoA
+
+1. AoOA—Age of Oldest Account is a segmentation factor in clean profiles
+
+"AoOA is not a \fico{} scoring factor. It is a scorecard assignment segmenter. If an
+increase moves you to a different scorecard your score may change due to a shift in weighting of the factors used
+in scoring, and the assigned min/max scores associated with the scorecard." [4] (Credit: Thomas\_Thumb)
+Link
+
+A mature profile is more stable and preferred. Penalties are less severe, but awards are smaller. The Score 8
+threshold has been theorized to be between 10-15 years since 2008. But guess where we found it 2019-2020?! At 3
+years!
+Link. (It also appears EX2 segments at 2 years based on Cassie's testing and data. Link. )
+TU4 and EQ5 also segment at 2 years. The reassignment to mature typically has a ~20 point loss, but for some can
+vary. YMMV. It is scorecard specific — the metrics are weighted differently. Likewise, seems new revolver
+reassignments close after a mature reassignment are not worth many points. Guess the buffer takes some time to
+build.
+
+There is only one threshold for AoOA per Version: it is a segmentation factor, and it causes scorecard
+reassignment; it is not a scoring factor. If you see a point gain at a suspicious AoOA threshold,
+it is probably an award from AoORA because that is probably the same as your AoOA.
+
+If a credit card is your oldest account, as it is for most people, AoOA=AoORA. These metrics therefore run the
+same for most people. The lack of realization of AoORA has caused delay in determination of the thresholds for
+AoOA and AoORA. If a loan was instead your first account, it will set your AoOA=AoOIA and you will not see score
+increases at the same rate as those who started with a revolver. The reason is because the award derives from
+AoORA, not AoOA!
+
+2. AAoA - Average Age of Accounts is a scoring factor
+
+It appears these awards are greater on young scorecards, where AoOA is <3 years old for Score 8.
+
+Awards seem to be at multiples of 6 months.
+
+- 3-15 point annual increase
+
+- Maximum award believed to occur by 90 months.
+
+There are 12 and 18 month thresholds on young scorecards, unconfirmed reports of thresholds at 24 and 30 months, and likely thresholds at 60, 66, 72, 78, 84 and 90 months. (K-in-Boston confirmed and reconfirmed the significant threshold at 84 months on a clean/thick/mature/new revolver profile.) I'm sure there are more.Link with links.
+
+B. AoORA-Age of Oldest Revolving Account and AAoRA-Average Age of Revolving Accounts arescoring factors 
+
+We've had a reports of thresholds at 24 \& 30 months:link,one at 36 months on a PR scorecard worth 6 points on versions 8 \& 2:link,one at 72 months:link,18 to 29 points,and we also have 2 reports of a possible threshold at 9 years: link. Consider the following:
+
+Since most people get a revolver first, typically AoORA = AoOA. Therefore, gains are mistaken for AoOA (the
+segmentation factor) when it's actually AoORA (the scoring factor) that's responsible.
+
+2 similar clean young profiles with similar AoOA and other statistics have significantly different scores, why?
+One started with a card and the other started with a year loan. AoORA DOES make a difference.
+Which do you think had the higher score? The one who started with a revolver.
+
+20 years is sufficient to max AoORA:Link.-BBS. Apparently 9 years is sufficient to max AAoRA.Link.-BBS
+
+C.AoOIA-Age of Oldest Installment Account and AAoIA-Average Age of Installment Accounts are scoring factors 
+
+Apparently not tracked by TU8. Negative reason codes point to this metric. Link.
+
+D. AoOOIA-Age of Oldest Open Installment Account and AAoOIA-Average Age
+ofOpen Installment Accounts are scoring factors 
+
+Apparently not tracked by EQ8. Negative reason codes point to this metric on some variants.
+Link,
+Link.
+
+E.AoOMA-Age of Oldest Mortgage Account and AAoMA-Average Age of Mortgage Accounts are scoring factors 
+
+Apparently not tracked by EQ8.
+
+F. AoOOMA-Age of Oldest Open Mortgage Account and AAoOMA-Average Age of Open Mortgage Accounts are scoring factors 
+
+Apparently not tracked by EQ8.
+
+ G. AoORBC-Age of Oldest Revolving Bankcard and AAoRBC-Average Age of Revolving Bankcards are scoring factors 
+
+Under study. Believed to be more prominent in Score 9.
+
+H. AoYA-Age of Youngest Account (Number of Months since most recent account opening)
+
+AoYA is a scoring factor for 8/9 and therefore directly gives/takes points there. AoYA = AoYRA, unless the youngest account is a loan. This metric appears to be the source of reported gains at months divisible by 3 on certain files, NOT AoYRA. Notice AoYA does not discriminate against loans, as the "New Credit" category AoYRA segmentation factor does.
+
+(In 5/4/3/2, AoYA is the Segmentation Factor and would be in New Credit because it segments profiles into no new account or new account scorecards at 18 months for the mortgage scores, like AoYRA does for 8/9 at 12 months.)
+
+
+\section{4. NEW CREDIT CATEGORY (No New Revolver/New Revolver)}
+
+
+10\% - ~55 points
+
+A. AoYRA - Age of Youngest Revolving Account is a segmentation factor in clean profiles for 8/9 at 12
+months. (Formerly wrongly thought to be AoYA, which is the segmenter for 5/4/3/2 at 18 months.)
+
+For Score 8, Open-ended accounts (OE) are considered revolvers for purposes of Mix. If you have 0 revolvers <12
+months of age, you are in a "No New Revolver" scorecard. If you have a revolver <12 months of age,
+you're in a "New Revolver" scorecard. All other things constant, there’s typically a ~10-20 point difference.
+
+This is one cause of losing points when a new revolver reports. If you already had one <12 months, you'll only
+see changes related to AAoA, AAoRA and utilization when it reports; however, if you had 0 <12 months of age, you
+wear a significant penalty as you reassign scorecards, the potential changes mentioned, plus the
+initial HP penalty, discussed soon.
+
+Loans are not included in AoYRA,
+link. The metric AoYA does include loans and is a scoring factor on 8/9 in the *Length
+of History* category.
+
+For 5/4/3/2, AoYA segments profiles into no new account or new account scorecards for the mortgage scores like AoYRA does for 8/9.
+
+B. Inquiries 
+
+- HPs may count for 0-20 \fico{} points each, though they are typically <5 points on
+mature/thick profiles, and higher for young/thin cards. (CreditRebel Cassie experienced a 20 point drop for one
+inquiry on a young/thin scorecard.
+Proof.
+)
+
+I believe they cost more on dirty profiles, too. ~ the 9th or 10th inquiry, is a saturation point and there's no
+further penalty.
+
+- Hard Inquiries are believed to be “binned.” This means there may be a score loss for the 1st, but not the 2nd,
+maybe for the 3rd, but not the 4th, etc. Exact bins are not known and may vary by scorecard.
+
+- Inquiry penalty points are returned at 365 days, unless it falls in a bin. Inquiries may remain on your report
+for a up to 25 months, but are only scoreable for 365 days.
+
+The purpose of a HP rather than a SP from a creditor is to put the world on notice of your credit seeking
+behavior, so as to slow your roll and protect their interests, so that you do not overextend yourself or so that
+at least other lenders have their eyes wide open in lending to you. So be grateful, not entitled when you get an
+SP CLI.
+
+i. Buffering/De-duplication of Installment Inquiries
+
+The point loss is immediate for most non-installment HPs, but \fico{} ignores installment
+HPs (IF coded correctly) from the preceding 30 days. (Buffering.)
+
+Installment HPs of the same type within 45 day windows are counted as 1 for scoring purposes by the algorithm
+(14 days for EX2). This is referred to as de-duplication and is designed to allow for rate-shopping.
+De-duplication does NOT combine installment inquiries across types supposedly. A mortgage pull
+and an auto pull will not be de-duplicated supposedly. So, 10 auto inquiries within 45 days will only penalize you
+as if it were 1, scorewise, assuming they were coded correctly.
+
+Please note that when applying for CCs, most lender computers simply see the raw number of inquiries, not
+de-duplicated. This causes auto denial for inquiry-sensitive lenders. A solution is not to apply to lenders that
+do not allow reconsideration (looking at you CapOne). If you apply and are denied for too many inquiries
+(credit-seeking), a quick call to UW explaining the multiple inquiries are from rate-shopping the same loan will
+usually cause manual reconsideration.
+
+Soft inquires are inquiries done for various reasons, have no scoring impact and can only be disclosed to the
+consumer. Examples include: promotional, AR (account review), consumer disclosure, insurance, employment. The type
+of SP determines the amount and depth of data given.
+
+Promotional inquiries, for instance, do not give account information, just contact demographics. AR gives
+everything except SPs and consumer disclosures give everything for example.
+
+C. Spree Penalty "Too many accounts recently opened" reason code Fact/Fiction? We don't
+know. 
+
+This is a scoring factor that considers how many revolvers <12? months old exist maybe or this may be
+like inquiries where one is too many.
+
+- too many new accounts opened within {0, 30, 60, 90?} days of opening an account may cause an additional "spree"
+penalty. This penalty is believed to cease at 12 months - Cassie - but all the details are not known. Probably
+doesn't affect mature profiles.
+
+Note: "New Revolver/Account penalty points" are from scorecard reassignment WHEN a new revolver
+reports and you had no revolver under 12 months of age upon it reporting. (AAoA, AAoRA, AoORA, and utilization
+changes, if applicable, all factor in at once along with everything else upon scorecard reassignment.) Any losses
+from subsequent revolvers reporting while having one <12 months of age are from AAoA hits, AAoRA hits, and/or
+balance/utilization changes; these changes also occur in the former situation upon the first card reporting, but
+because the algorithm accounts for them in one swoop, it is impossible to determine exactly how much of a changes
+each factor contributes. However, if no aging or utilization thresholds are crossed, that makes educated guesses
+easier. Don't forget HP penalties.
+
+There is no new revolver penalty for a 2nd or subsequent card within 12 months (nor a new account penalty for a
+2nd or subsequent account within 18 months for the Mortgage Scores), though losses may come from other
+metrics.
+
+Getting another revolver 6 months later might not cost you a new revolver penalty, but extends the time you are
+under it. As a result, I recommend getting what you need in 12 month cycles before the first one reports, as you
+now have a 12 month penalty and no use in making it longer. Plus you may as well have the best score when you do
+app, so waiting 12 months allows that award, plus it lets your HPs become unscorable, new revolvers age and any
+potential spree penalty to reset.
+
+
+\section{5. CREDIT MIX CATEGORY}
+
+
+10\% - ~55 points
+
+A. Number of accounts is a segmentation factor. (Thick/Thin)
+
+If you have 4 TLs on your CR, you are believed to be in a thick scorecard in Version 9, and maybe all versions,
+we're not certain. I would guess 5 for the old versions to be safe. A thick profile is preferred, penalties are
+less severe and the score is therefore more stable. Number of TLs has other effects, see 3, below.
+
+B. Mix Diversity 
+
+For \fico{}, there are 5 recognized account types. Having at least one TL on your CR from
+category i and at least one TL from either category ii or category iii is known to satisfy the "Diversity" scoring
+metric and give bonuses; it appears increasing the number of bankcards to a point can give additional points, see
+below.
+
+The 4th category is not known to give any additional bonus, and the 5th category is negative and penalizes.
+
+i.Revolving (CCs, most LOCs and HELOCs); includes Open-ended accounts. (True Chargecards, while a separate type of account, are counted as revolvers for purposes of Mix in Score 8 and do not offer additional points);
+
+ii.Non-Mortgage Loans (automobile loans, personal loans, student loans, recreational and
+vehicle loans, Credit builder loans [SSLs], etc.);
+
+iii.Mortgage Loans Mortgage loans, while installment, are in a category of their own.
+
+iv.Retail Accounts While these are typically revolving, they are in their own
+category and don't seem to offer any additional points.
+
+v. Consumer Finance Accounts (CFAs) These are loan tradelines that are
+considered negative. Finance companies are directed at those with lower credit scores and it is believed each
+bureau has its own list of those companies. If an institution has the word finance or financial in it, there's a
+good chance it may be a CFA.
+
+A card/loan on record, open or closed, appears to give Mix Diversity bonus, link, but open ones can have increased benefits via other categories, such as Amounts Owed.
+
+A lot of people think a mortgage is necessary to get an 850, or that not having one hurts their score.We know from the experts that both statements are false:
+
+Tom Quinn (\fico{}, VP of Scores): "T*here is no
+characteristic in \fico{} Scores that penalize a user for not having a mortgage loan."
+*(
+Link
+)
+
+...and...
+
+Tom Quinn: "There is no requirement to have an open mortgage to get an 850 score." (
+Link
+)
+
+... but we know the algorithm measures AoOMA, AAoMA, AoOOMA, \& AAoOMAs, so if these characteristics do not penalize, they must be measuring in order to reward?
+
+C. Number of Bankcards 
+
+Number of bankcards is a scoring factor for Mix for 8/9, but the exact ideal number is unknown. Closed revolvers
+may count. (TU4 is sensitive to high number of total accounts as a Scoring Factor.)
+
+For Score 8, it is believed you are leaving significant points on the table unless you have at least 3 bankcards.
+Upon acquiring your first bankcards, points are awarded and the 'too few bankcard' penalty is reduced. The exact
+amount is unclear as it occurs upon reporting, which may change many scoring factors and may result in scorecard
+reassignment on 8/9, if it results in AoYRA <12 months of age upon reporting when it was previously 12+
+months.
+
+When the scorecard reassignment results in a drop, its referred to as the "new revolver" penalty on 8/9 (or a
+"new Account" penalty on the Mortgage Scores), which can be exacerbated by aging hits. It can be offset by
+increased TCL (Total Credit Limit), if it causes thresholds to be crossed. The drop could also be partially offset
+by the "too few bankcards" penalty being reduced by your first several bankcards or by an award for your first
+loan (Mix Diversity points). Changes in score can also result from the number of accounts reporting a balance changing, if that changes when a new revolver/account reports.
+
+Number of bankcards indirectly affects other metrics, as opposed to number of accounts, which is a segmentation factor at all 3 bureaus for Score 8. The exact optimal number of bankcards is unknown. I recommend no less than 5 revolvers, with no less than 3 being bankcards, if not all of them. There may be a small benefit to having more than the 5:3 that can increase to a point. I don't believe there is a scoring benefit to having more than 10. The increased benefits may stop before 10; impossible to know at this point. I think 5-7 is great, but this is jmho. There is an example Scorecard in the first post under Scorecard Basics where you can see an example of \# of bankcards and resulting points.
+
+D. Revolver:Loan Ratio
+
+Revolver:Loan Ratio is a scoring factor at EQ8 and although the exact ideal ratio is unknown, it's believed to be 3:1 or 4:1. Link. Code 84.
+
+E. Account Exclusion/Removal Timeframes 
+
+Derogatory removal is addressed under Payment History, section 1. Clean accounts should remain 10 years, but
+could disappear sooner or remain longer.
+
+So, while a closed loan satisfies the credit mix diversity scoring factor, who knows when it will disappear? Plus, as discussed in Amounts Owed Section B, supra, having an open loan with B/L equal to or <9.5\% offers 15-35 bonus points.
+
+Here is a great discussion of the details of credit mix by our own esteemed
+Thomas\_Thumb:Link.
+
+
+\section{6. DISPUTES}
+
+
+You do not want to dispute a frivolous issue or it may end up causing more harm than good. While there our
+processes to resolve issues with tradeline reporting, every effort should be made to try to informally resolve it
+with a creditor first, as that is usually the easiest and most expedient method, but if that doesn't work,
+disputes are available.
+
+A. Direct Disputes
+
+A direct dispute is an option a consumer has to dispute directly with the creditor (furnisher) per FCRA. One
+would contact their creditor directly and file said dispute. Sometimes this can get a matter corrected without
+involving the CRAs, which is the distinction.
+
+If you've done a CRA dispute first, do not advise the creditor/furnisher of that via direct dispute or they may
+summarily dismiss it without
+investigation.
+Link.
+
+B. CRA dispute
+
+A debtor also has the option of filing a dispute with any or all of the CRAs, which are then required to
+'reinvestigate' the allegations within 30 days, if they meet certain requirements. The same issue raised
+successively may be summarily dismissed without reinvestigation. If you submit additional information before the
+re-investigation is completed, they are allowed an additional 15 days. There's also a 5 day period for
+mailing.
+
+If they cannot verify it (they can use the same information used to insert the TL to verify it, so kinda hard not
+to verify if they did their job the first time, right?), they must remove it. If they refuse, you can file a
+complaint with the CFPB or initiate a civil action. However, even if removed, if they're able to subsequently
+verify the information, it can be reinserted at a later date.
+Link.
+
+When you do these by computer or even by hand, if they can scan it in with OCR, it's all handled by computers
+automatically. That is not to your benefit. In my opinion to give yourself the best chance, handwrite your dispute
+include supporting documentation and mail it CMRRR. (certified mail return receipt requested.) Keep copies of
+everything.
+
+CRA’s must consider supporting
+documentation.
+Link.
+
+C. MOV (Method of Verification) Request
+
+If a CRA dispute comes back denied, as most will, you have the right to submit a Method of Verification request
+which is essentially a request for how the CRA verified your dispute as accurate. This is nice, as your burden in
+court will be to disprove the reasonableness of the reinvestigation, so any information as to how they concluded
+your account as accurate will go a long way in you showing how the investigation was not reasonable in section D
+or in court. Check these for more info:
+Link.Link.
+
+D. CFPB (Consumer Financial Protection Bureau)/Judicial remedies
+
+If you can't get satisfaction elsewhere, you may file a complaint with the CFPB or initiate a suit in court
+contesting the reasonableness of the furnisher's investigation, if you meet the requirements.
+Link.
+The CFPB has the responsibility and authority to enforce the FCRA and FDCPA. They may initiate judicial action
+against a CRA, but it is rare. Likewise if they direct the CRA to do something, they are usually motivated to do
+it, and they may in some cases file suit against the creditor to enforce the CFPB's order.
+Link.
+
+You may initiate judicial action regarding the reasonableness of the reinvestigation. (Consult qualified
+counsel).
+
+
+\section{7. LOCKING VS. FREEZING, FRAUD ALERTS, \& IDENTITY THEFT EXCLUSION}
+
+
+A. Freezing
+
+Congress passed legislation requiring CRAs to allow consumers to freeze their CRs without charge. While frozen,
+no HPs are possible, BUT new accounts CAN be added. Consequently, a new line of
+credit is unlikely and ID theft is reduced because most creditors will not extend credit absent a HP. Another
+advantage is, it may cause one to rethink applying for credit, as it adds another step.
+
+B. Locking
+
+The CRAs, obviously wanting to avold the legislation, devised an alternate method, "locking" your CR. They
+monetized this and marketed it as easier than freezes, despite the fact that it is no better than freezing. In
+fact, locking affords the consumer less protection, as it is not subject to the legislation's protections
+and requirements for freezes. I believe all but Experian now offer locks for free.
+
+C. Fraud Alerts
+
+If you place a fraud alert on your profile, a lender will not extend credit to you until they verify your
+identity by contacting you via the telephone number on your credit report.
+
+If you do not have a telephone number on your report, you're going to get a hard pull for nothing. So
+don't place a fraud alert unless you have a current number on there or don't apply for credit and expect more than
+a hard inquiry, if you don't have a number there where you can be reached and have a fraud alert active.
+
+D. Identity Theft Exclusion
+
+If an account appears on your credit report as a result of identity theft, the FCRA provides a remedy. If you
+file a police report alleging you did not authorize the account, it is a result of identity theft and obtain a
+police report, the CRA's are required to exclude it from your credit reports. This remedy does not involve the
+creditor or involve any contact with the creditor. The police report is provided to the CRA and they exclude the
+account.
+Link.
+(Credit: The esteemed Legendary MF contributor RobertEG.)
+Link.
+
+
+\section{8. MORTGAGE SCORES}
+
+
+The Mortgage Scores react very differently than 8/9. The mortgage scores were actually the general purpose score
+for the version when they were issued. For example, EX2 is based on the 1998 version and is used as Experian's
+mortgage Score. It also has bankcard and auto variants which are used. TU4 \& EQ5 (and EX3) are based on the 2004
+version and likewise have auto and bankcard variants.
+
+So Experian's mortgage score is going to react differently than TransUnion and Equifax's because they're based on
+different underlying base versions. Even with that said, TransUnion and Equifax's scores still have differences
+even though they were created from the same version, because their scorecards were generated based on different
+datasets and then customization.
+
+However we know there's going to be a bigger difference between the Experian Score versus the other two because
+they are based on different base versions. One thing about all the mortgage Scores is the number of accounts with
+a balance is a very important metric, more so than utilization. Version 8/9 made utilization more important,
+that's a big difference between the older and newer scores.
+
+Another important feature of the mortgage scores is they have an exclusionary amount (a dollar
+amount cutoff) where data from revolvers with CLs over that amount are not factored into revolving utilization \&
+balances. This can cause one to run into an unintentional AZ loss by only having a balance on a revolver with a CL
+above the exclusionary amount.The '98 Experian exclusion amount is between \$31,000-\$34,900 and is different from TU and EQ which are the same, \$35,000, because they're based on the same '04 version.
+
+Why are we using such old scores for mortgages? Well because Fannie Mae and Freddie Mac require mortgages to be
+underwritten on those scores I believe in order for them to purchase them, so all lenders therefore want them to
+qualify is my understanding.
+
+The best thing you can do for your mortgage Scores is AZEO, as recommended. Authorized user
+accounts always count full monty, just like a primary account, so all zero except one, preferably primary,
+bankcard with a CL <\$31,000 that's reporting a balance of under \$100. You would optimally have no new
+accounts in the last 18 months and no hard inquiries in the preceeding 365 days.
+
+Mortgage scores also segment on any account instead of just revolvers, like 8/9 as we learned.
+Therefore for 5/4/3/2, we use the nomenclature new account/no new account for scorecards, instead of new
+revolver/no new revolver as used for 8/9.
+
+We learned May 2021, 5/4/3/2 also has a higher threshold for new account segmentation, 18 months instead of the
+12 months used by 8/9. So you would think you'd want 18 months with no new accounts prior to a mortgage.
+Interestingly enough, I lost points going to certain no new account scorecards (EQ), but I am not at AZEO and
+believe those will be recovered once I am.
+
+Another thing, the young/mature segmentation point is at 2 years on the mortgage scores rather than the 3 year
+segmentation point they moved it to for 8/9. So beware: when your oldest account turns 2 years old, most people
+experience a significant score drop on the mortgage scores on the first of the month; the same thing happens on
+8/9 at 3 years. So, don't be surprised and don't get caught off guard, and if you're about to close on mortgage
+and you're coming up on your oldest account during 2 years old, beware! Remember it's profile specific, so
+everyone doesn't experience a drop; a few people experience a gain. Looking for datapoints please contribute.
+Don't just use, contribute.
+
+We're not sure about the thick/thin line, but we do know derogatories are treated differently because they only
+had 2 dirty scorecards back then as opposed to the 4 starting with version 8/9. My theory is the mortgage scores
+had a PR (public record) scorecard and a non-PR (delinquency) scorecard and that Version 8 broke each into a
+recent and mature card.
+
+It appears on the mortgage scores, 2 years after certain delinquencies, one went back to a clean card with
+penalty whereas one stays in a dirty card for 7 years on the newer scores with any delinquency 60+. Here's my
+theory of segmentation, subject to the caveat we don't know which delinquencies return to a clean card after 2
+years and which do not:
+
+Remember on the classic scores, you will not see a new account negative reason code in a dirty card.
+
+I'll try to add to this some more but just wanted to give some general information to start building it up. We're
+still learning a lot about this, so be patient as we learn and add. Suggestions and comments are welcome.
+
+Good discussion by TT of differences among bureaus relevant to a old mortgage loan being paidoff and closed.
+(Only loan.)
+Link.
+
+CFAs can cost ~20 points across bureaus on a PR card and ~40 points on a delinquency card,according to:
+link.
+
+
+\subsection{A. HELOCS}
+
+
+HELOCS are included in revolving metrics in EX2, up to the exclusionary amount (cutoff). 5/4 exclude HELOCS from
+revolving metrics. It is believed they were patched after release - a first for
+\fico{}. Coincidentally, Score 3 apparently wasn't patched and apparently includes HELOCs
+in revolving metrics up to the exclusionary amount of \$35,000. ~Revelate
+link.
+
+
+\subsection{B. EQ5}
+
+
+-revolvers with CLs of \$35,000 or higher are excluded and should not be used for an AZEO card.
+
+-not sensitive to lack of open loan.
+
+-sensitive to number of AWB. -TT Link.
+
+-18 month new account threshold: BM
+Link.
+
+(Clean/thick/mature)-AWB is more influential on a no new account Scorecard \&
+AWB is less influential on a new account Scorecard. -BM Id.
+
+AU variant:
+
+(Clean/thick/mature)
+
+-New account scorecard more sensitive to revolving balances;
+
+-no new account Scorecard more sensitive to revolving AWB \& installment balances;
+
+-Has a new account reason code beyond 18 months. -BM
+
+BC Variant :
+
+(Clean/thick/mature)
+
+-New account scorecard more sensitive to short installment history length. -BM
+
+
+\subsection{C. TU4}
+
+
+-18 month new account threshold found: BM
+link.
+
+-sensitive to total number of accounts on clean/thick/mature/new account scorecard, but not on a no new account
+scorecard. Id. -BM
+
+-most sensitive to 100\% AWB followed by EX then EQ on her card: clean/thick/mature/new account -Cassie
+link.
+
+-revolvers with CLs of \$35,000 or higher are excluded and should not be used for an AZEO card. -TT
+
+
+\subsection{D. EX2}
+
+
+AWB includes all accounts, open and closed. -BM
+
+-revolvers with CLs > \$31,000 may be excluded and should not be used for an AZEO card. (Cutoff is over \$31,000
+but below \$34,900.)-TT
+
+-6 year/72 month AAoA threshold on clean/thick/mature/new account scorecard, +7 for classic, +15 for auto, +7 for
+BCE.
+Link.
+-BM
+
+-On clean/thick/mature/new accounts scorecard, is sensitive to AWB; no new account scorecard not as sensitive to
+AWB. BM
+
+-has a 30\% threshold for number of accounts with a balance on clean/thick/mature, and again the denominator
+includes all accounts including closed accounts.
+(Trudy)Link.
+This is not the lowest threshold.
+
+-Closing an old mortgage had a strong impact on auto, but not Classic or BCE. -TT
+
+Link.
+
+-18 month new account segmentation threshold; possible 84 month AAoRA threshold. -BM
+link.
+
+-Typically loses many points at 2 years AoOA mature scorecard reassignment, even with no balance change. - Cassie
+link.
+
+
+\section{9. FICO 9}
+
+
+So I figured it was time to add a section for version 9, since many banks have adopted it and there are plenty of
+questions about it.
+
+Version 9 was built to be an improvement on version 8. We do know all the segmentation points for version 9,
+except the additional 13th Scorecard that was added for high utilization. That we do not yet understand.
+
+Segmentation points are the same as version 8, except that we are sure of the file being segmented as thick with
+4 accounts on version 9. I would argue we are not totally sure for the other versions. So 60 day or worse put you
+in a dirty card, 3 years makes you mature, 4 accounts make you thick, and 12 months AoYRA, you go to a no-new
+scorecard.
+
+So what's different what's new? Paid collections are now ignored in addition to nuisance collections which are
+those under \$100. Medical collections are weighted less. A more recent dataset was used to create version 9.
+
+Many of the changes are opposite that of version 8 and are counterintuitive. For instance, the new revolvers
+reassignment point change seems to go in the opposite direction from version 8 for most.
+
+I will add to this as I think of other things or as we learn other things. Please contribute data points,
+corrections, or suggestions.
+
+
+\section{10. REASON CODES/STATEMENTS}
+
+
+Reason Codes/Statements are generated by the \fico{} algorithm at the same time as your score. Each Code is tied to a Reason Statement. These codes/statements give a window into the reason for your score, the reason for score changes, and how you can improve your score. They are listed in the order of precedence:
+
+The following shows an example of how the algorithm generates the negative reason codes:
+
+It seems positive reason statements are the inverse of the negative statements. The only things you know you can use to reliably tell what the algorithm itself is doing it seems are score changes and reason codes/statements, as we know they are the direct output from the algorithms.
+
+The problem is, some CMSs, including My\fico{}, change the text of the reason statements. My\fico{} calls theirs "Score Factors." These are supposed to be easier to understand, but that can cause confusion because then you don't know which actual reason code and statement it lines up with from the published tables. Contributor iv has thankfully made a Reason Statement/Score Factor concordance chart to assist you in finding the real reason statement \& code and has also provided extensions for your convenience to reveal the hidden reason codes in the Score Factors on MF 3B reports. Link. The chart still is nascent and needs our help to be completed, so please contribute DPs!
+
+Also see this linkedtable, which includes an "(M)" or an "(I)" by codes meaning they are only for the mortgage variant (which never caught on) or the industry option scores (BC and AU). The table is very helpful as it tells you which codes do or do not exist in various variants/versions. A great deal can be determined from this. However, keep in mind that all negative reason codes for a particular version do not exist in every scorecard of that version. This is one of the clues as to what scorecard you may be in
+
+Here's my theory for what it's worth: \fico{} starts with ~500 characteristics and they run their highfalutin math on the datasets for whatever time period from the respective bureau. It generates the ~20 most predictive characteristics and their weightings for each subpopulation. In other words it generates the different scorecards.
+
+So if you have 4 characteristics in each of 5 categories, that would make the 20 characteristics for your scorecard, for example. But keep in mind, one characteristic can be double-pronged, like the oldest and/or average age reason codes, where one characteristic actually measures 2 separate but related Scoring Factors. 😉
+
+This generates the algorithm for that version at that bureau; it is then subject to further customization by \fico{}per CRA request-TT. That's why data can be identical across bureaus and result in a different score. Each bureau's dataset and customization request was different, so the resulting scorecards are different with potentially different weightings and maybe even different characteristics being measured.
+
+We see that one bureau measures certain characteristics where others don't and there's several instances of this as can be seen in Cassie's Score Factor thread and differential post, linked below. For example, one bureau does not penalize for authorized user derogatories. And only Equifax measures the number of revolvers with a balance, it appears. All the others are AWB.
+
+I believe each negative reason corresponds to one or more characteristics being measured. For instance, the negative reason code that refers to the oldest or average age of your revolving accounts is signaling that one or both of those characteristics is not in the optimal range, and therefore improvement could award more points.
+
+Cassie has created html reason code tables for you at:
+
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Score-Factors/m-p/6170415/highlight/true...
+
+
+\section{11. Search Secrets}
+
+
+Sorry, but some search software leaves much to be desired and even more to be found. But not to fret, Google can search more efficiently for you and even filter it by time period as well as keywords. Try it out, bet you'll find more than you thought.
+
+Here's an example by Cassie sharing with the Community how to do so:
+
+No spaces next to any colon (:)
+
+General:
+site:[domain] [keywords] after:YYYY-MM-DD before:YYYY-MM-DD
+
+Example: (Search for scoring primer between June 7, 2021 and March 1, 2023)
+site:creditrebels.net scoring primer after:2021-06-07 before:2023-03-01
+
+Exact Match Keywords: (Search for the exact phrase lost 20 points, after January 15, 2022)
+site:creditrebels.net "lost 20 points" after:2022-01-15
+
+Exclude Keywords
+(Search for experian without any mention of boost, before September 28, 2022)
+site:creditrebels.net experian -boost before:2022-09-28
+
+Search ranges (Search for recent approvals across a range of scores. Uses Google range operator: dot-dot between numbers.)
+site:creditrebels.net 630..680 approval after:2023-01-01
+
+Play with it, make a macro, but search the site with a deep search and limit it by date and keyword for relevance.
+
+
+\section{12. Bibliography}
+
+
+Aging delinquency strings versus monthlies:
+
+Attribution for: "...Experian...excludes...delinquencies in a common “string”...at 7 years from [DOFD]...The
+other two CRAs have no official, published policy interpretation, and have...excluded based on [DOFD] OR have
+treated each...delinquency as its own separate adverse item of information, and thus have not excluded...until
+each has reached...7 years..."
+
+[1]. RobertEG Jan 2020,
+Permalink.
+
+Attribution for "installment loans can give points over time irrespective of thresholds"...."As mentioned up
+thread and shown by a graph, loan age is an actor that influences score outside of B/L ratio on installment
+loans..."
+
+[2]. Thomas\_Thumb May 2017,
+Permalink
+
+Attribution for "Utilization less than or equal to one of 9\%, 29\%, 49\%, 69\%, or 89\% works just fine to avoid the
+next higher interval."
+
+[3]. Cassie Feb 2020,
+Permalink
+
+Attribution for: AoOA is not a \fico{} scoring factor. It is a scorecard assignment
+segmenter. If an increase moves you to a different scorecard your score may change due to a shift in weighting of
+the factors used in scoring and the assigned min/max scores associated with the scorecard.
+
+[4]. Thomas\_Thumb Jan 2018,
+Permalink
+
+
+\section{13. References/Permalinks}
+
+
+More about Scorecards
+
+Common Abbreviations
+
+Adding an installment loan -- the Share Secure technique
+
+Good information minutiae of OC recall of collection from CA
+
+May
+2020 example of SSL execution
+
+NASA FCU \$1500 60 month SSL:
+
+https://ficoforums.myfico.com/t5/Personal-Finance/The-Quest-for-an-SSL-alternative-to-Alliant/m-p/61...
+
+Balance threshold@
+\$147?https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/EX-suggests-that-I-lower-my-util-to-unde...
+
+Tracking the First Year with Credit
+Cards:https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/The-All-At-Just-Under-8-99-Utilization-e...
+
+All Zero Penalty to AZEO (credit angelwingz):
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/All-Zero-Penalty-to-AZEO/m-p/5926475/hig...
+
+Evidence/References
+for "AU cards at Zero = Separate Penalty"
+
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/General-Scoring-Primer-and-Version-8-Mas...
+
+If you are just starting your credit:
+
+HOWTO:
+Get a +62 point FICO 8 jump on a clean file with thanks to @Cassie
+
+An Application of Credit Scoring: Developing a Scorecard Model :
+https://rpubs.com/chidungkt/442168
+
+(An introduction to logistic regression and WOE/IV tables, with R code.)
+
+Installment loan thresholds by Revelate:
+
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Utilization-percentage-points-where-I-ca...
+
+Thomas\_Thumb new credit points expected:
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/TU-Score-changes-3-to-4-cards-All-9-scor...
+
+Example of 20-year-old hitting 800 with two years history:
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Turned-20-and-over-800-credit-score-with...
+
+AimHigh's breakdown regarding statement balance/current balance timing:
+
+https://ficoforums.myfico.com/t5/Credit-Cards/AOD-Visa-Siggy-Discussion-Thread/m-p/6282339/highlight...
+
+PFDs can be done with OCs or CAs:
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Help-with-small-charge-off/m-p/5734068/highl...
+
+Charge off required at 120 days on loan and180 days on revolver:
+https://ficoforums.myfico.com/t5/General-Credit-Topics/Charge-Off-s-count-toward-Utilization-This-is...
+
+Explanation of how a charge off can drop score upon being paid if not regularly
+updated:https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Paid-charge-offs-score-dropping/m-p/5497524/...
+
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Can-a-tradeline-update-cause-a-large-credit-...
+
+https://ficoforums.myfico.com/t5/General-Credit-Topics/After-filing-an-online-dispute-with-Experian-...
+
+Explanation of the difference between payment status and current status:
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Paid-Charge-off-Status-Date-updated-causing-...
+
+Discussion of good secured cards:
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Chances-of-approval-after-pre-qual/m-p/60579...
+
+CAs that do PFD's:
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Collection-agencies-that-do-PFD/m-p/5675391
+
+Which banks pull which CRA
+https://ficoforums.myfico.com/t5/General-Credit-Topics/The-quot-Which-Banks-Pull-Which-Report-For-Ap...
+
+3-year threshold for score 8 AoOA
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Oldest-account-hits-3-yrs-scores-drops-u...
+
+2 year threshold for EX2 AoOA
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/AoOA-2yr-AoYA-1yr-Hello-new-scorecard/m-...
+
+A balance change can affect score a couple days before it’s reflected in the CMS front end.
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/AoYA-3-months-and-or-AoOA-15-months-thre...
+
+Loan modification is a serious derogatory in fico 9
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/FICO-Bankcard-9-showing-delinquency/m-p/...
+
+Accounts in dispute removal for mortgage
+https://ficoforums.myfico.com/t5/Mortgage-Loans/Best-Way-to-Remove-quot-Account-In-Dispute-quot-for-...
+
+AmEx 3X CLI thread
+https://ficoforums.myfico.com/t5/Credit-Card-Applications/The-Definitive-Amex-3X-CLI-Guide/td-p/1811...
+
+Explanation of why you cannot rely on values calculated and displayed by CMSs' frontends AKA "Fluff" (Credit to
+BBS for coining the term, I believe):
+https://ficoforums.myfico.com/t5/Credit-Card-Applications/Navy-Federal-Thread-for-CLI-and-Additional...
+
+800+ is possible with 60 day derogatories
+
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Achieved-800-FICO-with-30-day-late-repor...
+
+List of links to soft pull preapprovals
+
+https://ficoforums.myfico.com/t5/General-Credit-Topics/List-of-Soft-pull-PREAPPROVAL-Links-Updated-8...
+
+Miscoded INQ causing 30 day buffer trigger from cc app?
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Experian-Fico-2-drops-with-no-change-on-...
+
+850 buffers discussion
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Buffers-Is-there-a-max/m-p/6080290/highl...
+
+Utilization re: closed cards
+https://ficoforums.myfico.com/t5/Credit-Cards/Does-it-hurt-to-have-a-balance-on-a-closed-card-Does-o...
+
+Bankruptcy to 700 in 24 months!
+https://ficoforums.myfico.com/t5/Bankruptcy/HOW-TO-From-BK7-discharge-to-700-in-24-months-or-less/td...
+
+A PR scorecard appears more sensitive to utilization compared to a delinquency scorecard
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/Collections-and-Score-Volatility/td-p/60...
+
+AAoRA threshold found at 9 years
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/AAoRA-threshold-at-9-years/m-p/6108126\#M...
+
+Adding a second and third card and the SSL and Paydown
+https://ficoforums.myfico.com/t5/Bankruptcy/UPDATE-A-few-questions-to-kick-start-my-rebuild/m-p/6109...
+
+1.5 year average age threshold
+https://ficoforums.myfico.com/t5/Understanding-FICO-Scoring/AAoA-1yr-6mo-All-Mortgage-Scores-Up-Due-...
+
+CA May not add interest or fees unless permitted by the original debt agreement
+
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Credit-card-charge-off-now-has-4k-in-interes...
+
+Notice requirements for service of process/default judgments without personal service
+
+https://ficoforums.myfico.com/t5/Rebuilding-Your-Credit/Zombie-Debt-Capital-One-Midland-Credit/m-p/6...
+
+Table of Contents
+
+\begin{itemize}[leftmargin=*]
+    \item Intro
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Quick Reference
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Where did this come from?
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Brief Background
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item \fico{} scoring
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item \fico{} Score 8 key differences
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item So, how does scoring work in \fico{} Score 8?
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Rating/Score range
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Categories/Ingredients
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Start Birdman
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Scorecard Basics
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Payment History Category (Clean/Dirty)
+\end{itemize}
+
+Derogatory categories
+
+\begin{itemize}[leftmargin=*]
+    \item Collections/CA/Dunning notice/DV
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Aging Derogatories
+\end{itemize}
+
+Scoring
+
+\begin{itemize}[leftmargin=*]
+    \item Derogatory Removal
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item CR Removal Quick reference
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Judicial SOL (Statute of Limitations)
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Amount Still Owed on Delinquent Accounts
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Multiple Delinquency Penalty
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Recency
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Number of Accounts Paid as Agreed
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AMOUNT OF DEBT CATEGORY
+\end{itemize}
+
+Utilization
+
+Revolving
+
+Aggregate
+
+\begin{itemize}[leftmargin=*]
+    \item Individual
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Loan
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Percentage/Number of Accounts Reporting Balance/AZEO
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item All Zero Point Loss-(AU Test included)
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item CO
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Revolving Balance Metric-Aggregate and ABORT
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Loan Balances Metric
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Account Balances Metric
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item LENGTH OF HISTORY CATEGORY (Mature/Young)
+\end{itemize}
+
+AoOA and AAoA
+
+AoOA-Age of Oldest Account is a Segmentation Factor in clean profiles
+
+\begin{itemize}[leftmargin=*]
+    \item AAoA-Average Age of Accounts is a scoring factor
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoORA-Age of Oldest Revolving Account and AAoRA-Average Age of Revolving Accounts are scoring factors
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoOIA-Age of Oldest Installment Account and AAoIA-Average Age of Installment Accounts are scoring factors
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoOOIA-Age of Oldest Open Installment Account and AAoOIA-Average Age of OpenInstallment Accounts are scoring factors
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoOMA -Age of Oldest Mortgage Account and AAoMA-Average Age of Mortgage Accounts are scoring factors
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoOOMA-Age of Oldest Open Mortgage Account and AAoOMA-AverageAge ofOpen Mortgage Accounts are scoring factors
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoORBC-Age of Oldest Revolving Bankcard and AAoRBC-AverageAge of Revolving Bankcards are scoring factors
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item AoYA-Age of Youngest Account is a scoring factor for 8/9, segmentation factor on 5/4/3/2
+\end{itemize}
+
+•
+NEW CREDIT CATEGORY (No New Revolver/New Revolver)
+
+AoYRA - Age of Youngest Revolving Account (Segmentation Factor on 8/9)
+
+\begin{itemize}[leftmargin=*]
+    \item Inquiries
+\end{itemize}
+
+Buffering/De-duplication of Installment Inquiries
+
+\begin{itemize}[leftmargin=*]
+    \item AAoA-Average Age of Accounts is a scoring factor
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Spree Penalty - "Too many accounts recently opened" reason code -fact/fiction?
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Credit Mix Category (Thick/Thin)
+\end{itemize}
+
+Number of Accounts (Segmentation Factor)
+
+\begin{itemize}[leftmargin=*]
+    \item Mix Diversity
+\end{itemize}
+
+Revolving and Open-ended
+
+\begin{itemize}[leftmargin=*]
+    \item Non-Mortgage Loans
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Mortgage Loans
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Retail Accounts
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item CFAs
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Number of Bankcards
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Revolver:Loan Ratio
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Account Removal
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Disputes
+\end{itemize}
+
+Direct disputes
+
+\begin{itemize}[leftmargin=*]
+    \item CRA disputes
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item MOV Request
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item CFPB/Judicial remedies
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item LOCKING VS. FREEZING and FRAUD ALERTS
+\end{itemize}
+
+Freezing
+
+\begin{itemize}[leftmargin=*]
+    \item Locking
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Fraud Alerts
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Identity Theft Exclusion
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Mortage Scores
+\end{itemize}
+
+HELOCs
+
+\begin{itemize}[leftmargin=*]
+    \item EQ5
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item TU4
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item EX2
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item FICO 9
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Reason Codes/Statements
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Search Secrets
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item Bibliography
+\end{itemize}
+
+\begin{itemize}[leftmargin=*]
+    \item References/Permalinks
+\end{itemize}
+
+Return to Intro
+
+
+\section{Notes}
+
+
+A very special thanks to Cassie, my Technical Advisor, for assisting with technical issues, tables, images, research, attribution, adding great links and information, the presentation of this thread, encouragement and so much more. Would not have been anywhere near as nice, comprehensive, and robust without her help. Thank you! And thank you for your continued help in keeping this updated and a wonderful resource for all members.
+
+The above posts are from what I have learned from many and from my own testing. They represent the best knowledge we have, but that doesn't mean there may not be errors. There is quite a bit we still don't know and probably never will. Nevertheless, I have done my best to present the best information possible IMHO.
+
+If you find errors, or you think something should be added, please let me know. If you think something is unclear or needs clarification, please let me know.
+
+Also, I would like to give proper attribution for theories and discoveries. Please let me know if one of the findings is yours. If so, provide the link and I will add it.
+
+\end{document}
