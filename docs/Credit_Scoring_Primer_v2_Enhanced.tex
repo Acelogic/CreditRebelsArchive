@@ -402,36 +402,79 @@ Score 8 has \textbf{12 scorecards}: 8 clean and 4 dirty scorecards.
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=0.85, transform shape,
-    level 1/.style={sibling distance=8cm, level distance=2cm},
-    level 2/.style={sibling distance=4cm, level distance=2cm},
-    level 3/.style={sibling distance=2.2cm, level distance=2cm},
-    every node/.style={draw, rounded corners, minimum width=1.8cm, minimum height=0.8cm, align=center, font=\small},
-    edge from parent/.style={draw, ->, >=stealth}
-]
-\node[fill=primaryblue, text=white] {Credit Profile}
-    child {node[fill=successbg] {Clean\\(No 60D+ late)}
-        child {node[fill=lightgray] {Thick\\($\geq$4 TLs)}
-            child {node[fill=tablerow2] {Mature\\($\geq$36 mo)}}
-            child {node[fill=tablerow2] {Young\\(<36 mo)}}
-        }
-        child {node[fill=lightgray] {Thin\\(<4 TLs)}
-            child {node[fill=tablerow2] {Mature}}
-            child {node[fill=tablerow2] {Young}}
-        }
-    }
-    child {node[fill=dangerbg] {Dirty\\(60D+ late)}
-        child {node[fill=lightgray] {PR\\(Public Record)}
-            child {node[fill=tablerow2] {Recent}}
-            child {node[fill=tablerow2] {Mature}}
-        }
-        child {node[fill=lightgray] {No PR\\(Delinquency)}
-            child {node[fill=tablerow2] {Recent}}
-            child {node[fill=tablerow2] {Mature}}
-        }
-    };
+\begin{tikzpicture}[scale=0.7, transform shape]
+    % Styles
+    \tikzstyle{root} = [draw, rounded corners, fill=primaryblue, text=white, minimum width=2cm, minimum height=0.7cm, align=center, font=\small\bfseries]
+    \tikzstyle{level1} = [draw, rounded corners, minimum width=1.6cm, minimum height=0.6cm, align=center, font=\footnotesize]
+    \tikzstyle{level2} = [draw, rounded corners, minimum width=1.4cm, minimum height=0.5cm, align=center, font=\scriptsize]
+    \tikzstyle{level3} = [draw, rounded corners, minimum width=1.2cm, minimum height=0.5cm, align=center, font=\scriptsize]
+    \tikzstyle{leaf} = [draw, rounded corners, minimum width=1cm, minimum height=0.4cm, align=center, font=\tiny]
+    \tikzstyle{arrow} = [draw, ->, >=stealth, thick]
+
+    % Root
+    \node[root] (root) at (0,0) {Credit Profile};
+
+    % Level 1: Clean/Dirty
+    \node[level1, fill=successbg] (clean) at (-6,-1.5) {Clean\\(No 60D+ late)};
+    \node[level1, fill=dangerbg] (dirty) at (6,-1.5) {Dirty\\(60D+ late)};
+
+    % Level 2: Thick/Thin for Clean, PR/No PR for Dirty
+    \node[level2, fill=lightgray] (thick) at (-9,-3) {Thick\\($\geq$4 TLs)};
+    \node[level2, fill=lightgray] (thin) at (-3,-3) {Thin\\(<4 TLs)};
+    \node[level2, fill=lightgray] (pr) at (4,-3) {PR};
+    \node[level2, fill=lightgray] (nopr) at (8,-3) {No PR};
+
+    % Level 3: Mature/Young
+    \node[level3, fill=tablerow2] (tm) at (-11,-4.5) {Mature};
+    \node[level3, fill=tablerow2] (ty) at (-7,-4.5) {Young};
+    \node[level3, fill=tablerow2] (thm) at (-5,-4.5) {Mature};
+    \node[level3, fill=tablerow2] (thy) at (-1,-4.5) {Young};
+
+    % Level 4: New Revolver/No New Revolver (8 clean scorecards)
+    \node[leaf, fill=successbg!30] (tm-nnr) at (-12,-6) {No New\\Rev};
+    \node[leaf, fill=successbg!30] (tm-nr) at (-10,-6) {New\\Rev};
+    \node[leaf, fill=successbg!30] (ty-nnr) at (-8,-6) {No New\\Rev};
+    \node[leaf, fill=successbg!30] (ty-nr) at (-6,-6) {New\\Rev};
+    \node[leaf, fill=successbg!30] (thm-nnr) at (-6,-6) {No New\\Rev};
+    \node[leaf, fill=successbg!30] (thm-nr) at (-4,-6) {New\\Rev};
+    \node[leaf, fill=successbg!30] (thy-nnr) at (-2,-6) {No New\\Rev};
+    \node[leaf, fill=successbg!30] (thy-nr) at (0,-6) {New\\Rev};
+
+    % Dirty scorecards (4 total)
+    \node[leaf, fill=dangerbg!30] (pr-r) at (3,-4.5) {Recent};
+    \node[leaf, fill=dangerbg!30] (pr-m) at (5,-4.5) {Mature};
+    \node[leaf, fill=dangerbg!30] (nopr-r) at (7,-4.5) {Recent};
+    \node[leaf, fill=dangerbg!30] (nopr-m) at (9,-4.5) {Mature};
+
+    % Arrows
+    \draw[arrow] (root) -- (clean);
+    \draw[arrow] (root) -- (dirty);
+    \draw[arrow] (clean) -- (thick);
+    \draw[arrow] (clean) -- (thin);
+    \draw[arrow] (dirty) -- (pr);
+    \draw[arrow] (dirty) -- (nopr);
+    \draw[arrow] (thick) -- (tm);
+    \draw[arrow] (thick) -- (ty);
+    \draw[arrow] (thin) -- (thm);
+    \draw[arrow] (thin) -- (thy);
+    \draw[arrow] (tm) -- (tm-nnr);
+    \draw[arrow] (tm) -- (tm-nr);
+    \draw[arrow] (ty) -- (ty-nnr);
+    \draw[arrow] (ty) -- (ty-nr);
+    \draw[arrow] (thm) -- (thm-nnr);
+    \draw[arrow] (thm) -- (thm-nr);
+    \draw[arrow] (thy) -- (thy-nnr);
+    \draw[arrow] (thy) -- (thy-nr);
+    \draw[arrow] (pr) -- (pr-r);
+    \draw[arrow] (pr) -- (pr-m);
+    \draw[arrow] (nopr) -- (nopr-r);
+    \draw[arrow] (nopr) -- (nopr-m);
+
+    % Labels
+    \node[font=\tiny, text=mediumgray] at (-6,-6.7) {\textbf{8 Clean Scorecards}};
+    \node[font=\tiny, text=mediumgray] at (6,-5.2) {\textbf{4 Dirty Scorecards}};
 \end{tikzpicture}
-\caption{Score 8 Scorecard Segmentation Tree}
+\caption{Score 8 Scorecard Segmentation Tree (12 Total Scorecards)}
 \end{figure}
 
 \begin{warning}
@@ -1184,13 +1227,13 @@ If you find errors, think something should be added, or want proper attribution 
 
 \begin{tcolorbox}[colback=successbg, colframe=successborder, title={\faIcon{check-circle} Optimal Targets}]
 \begin{tabular}{ll}
-\textbf{Utilization (Aggregate)} & \threshold{<9.5\%} (or <4.5\% for max points) \\
+\textbf{Utilization (Aggregate)} & \threshold{<9.5\%} (some scorecards: <4.5\%) \\
 \textbf{Utilization (Individual)} & \threshold{<30\%} per card \\
 \textbf{Revolving Balance} & \$5--\$20 on ONE card (never \$0 on all) \\
 \textbf{Retail Utilization} & \threshold{\$0} \\
 \textbf{Inquiries} & \threshold{0} (impact removed at 12 months) \\
 \textbf{Number of Bankcards} & 5--7 (loss for <3) \\
-\textbf{Mix} & 3--4 revolvers + 1 loan \\
+\textbf{Mix} & 5+ revolvers (3+ bankcards) + 1 loan \\
 \end{tabular}
 \end{tcolorbox}
 
