@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Rebels Toolkit - FICO Score Tools</title>
+    <meta name="description" content="Free credit scoring tools based on the Credit Scoring Primer. AAoA Calculator, Utilization Optimizer, AZEO Planner, and more.">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #38a169;
+            --accent-hover: #2f855a;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .memorial {
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav .tabs {
+            display: flex;
+            gap: 0.25rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav button {
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-radius: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        nav button:hover {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        nav button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .tool-section {
+            display: none;
+        }
+
+        .tool-section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: var(--primary-light);
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.1rem;
+        }
+
+        .card > p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        button.primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.primary:hover {
+            background: var(--accent-hover);
+        }
+
+        button.secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .results {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text-muted);
+        }
+
+        .result-value {
+            font-weight: 600;
+        }
+
+        .result-value.good {
+            color: var(--accent);
+        }
+
+        .result-value.warning {
+            color: var(--warning);
+        }
+
+        .result-value.danger {
+            color: var(--danger);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .accounts-list {
+            margin-top: 1rem;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--bg);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .account-item .info {
+            flex: 1;
+        }
+
+        .account-item .name {
+            font-weight: 500;
+        }
+
+        .account-item .details {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .account-item button {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .inline-form {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .inline-form input, .inline-form select {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .inline-form button {
+            white-space: nowrap;
+        }
+
+        .credit-card-input {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.9rem;
+        }
+
+        .countdown {
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .timeline-item {
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .timeline-item.complete {
+            border-left-color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .timeline-item .date {
+            font-weight: 600;
+        }
+
+        .timeline-item .event {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .scorecard-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.25rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .credit-card-input {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Credit Rebels Toolkit</h1>
+        <p>Free FICO Score Tools Based on the Credit Scoring Primer</p>
+        <div class="memorial">In Memory of Birdman (1976-2023)</div>
+    </header>
+
+    <nav>
+        <div class="tabs">
+            <button class="active" data-tab="aaoa">AAoA Calculator</button>
+            <button data-tab="utilization">Utilization Optimizer</button>
+            <button data-tab="azeo">AZEO Planner</button>
+            <button data-tab="tracker">Inquiry Tracker</button>
+            <button data-tab="derogatory">Derogatory Tracker</button>
+            <button data-tab="scorecard">Scorecard Estimator</button>
+            <button data-tab="reference">Quick Reference</button>
+            <button data-tab="settings">⚙️ Data</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- AAoA Calculator -->
+        <section id="aaoa" class="tool-section active">
+            <div class="card">
+                <h2>Average Age of Accounts Calculator</h2>
+                <p>Calculate your credit age metrics: AAoA, AoOA, AoYA, AoORA, AoYRA, and Chase 5/24 status.</p>
+
+                <h3>Add Account</h3>
+                <div class="inline-form">
+                    <input type="text" id="acct-name" placeholder="Account name">
+                    <input type="date" id="acct-date">
+                    <select id="acct-type">
+                        <option value="bankcard">Bankcard</option>
+                        <option value="retail">Retail Card</option>
+                        <option value="charge">Charge Card</option>
+                        <option value="heloc">HELOC</option>
+                        <option value="auto">Auto Loan</option>
+                        <option value="mortgage">Mortgage</option>
+                        <option value="student">Student Loan</option>
+                        <option value="personal">Personal Loan</option>
+                    </select>
+                    <button class="primary" onclick="addAccount()">Add</button>
+                </div>
+
+                <div id="accounts-list" class="accounts-list"></div>
+
+                <div id="aaoa-results" style="display:none;">
+                    <h3>Age Metrics</h3>
+                    <div class="grid">
+                        <div class="stat-card">
+                            <div class="value" id="aaoa-value">--</div>
+                            <div class="label">AAoA (Average Age)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="aooa-value">--</div>
+                            <div class="label">AoOA (Oldest)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="aoya-value">--</div>
+                            <div class="label">AoYA (Youngest)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="aoyra-value">--</div>
+                            <div class="label">AoYRA (Youngest Revolver)</div>
+                        </div>
+                    </div>
+
+                    <h3>Chase 5/24 Status</h3>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Cards opened in last 24 months</span>
+                            <span class="result-value" id="chase-count">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Status</span>
+                            <span class="result-value" id="chase-status">--</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Slots remaining</span>
+                            <span class="result-value" id="chase-slots">5</span>
+                        </div>
+                    </div>
+
+                    <h3>Estimated FICO 8 Scorecard</h3>
+                    <div id="scorecard-result" class="results"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Utilization Optimizer -->
+        <section id="utilization" class="tool-section">
+            <div class="card">
+                <h2>Utilization Optimizer</h2>
+                <p>Calculate optimal balances to achieve the best utilization for your score. Target: &lt;9.5% aggregate (or &lt;4.5% for max points on some scorecards).</p>
+
+                <div class="tip">
+                    <strong>Key Thresholds:</strong> &lt;9.5% for main threshold, &lt;4.5% for potential extra points. Never $0 on ALL cards (All-Zero penalty costs 10-25 points).
+                </div>
+
+                <h3>Add Credit Card</h3>
+                <div class="credit-card-input">
+                    <input type="text" id="card-name" placeholder="Card name">
+                    <input type="number" id="card-limit" placeholder="Credit limit">
+                    <input type="number" id="card-balance" placeholder="Current balance">
+                </div>
+                <button class="primary" onclick="addCard()">Add Card</button>
+
+                <div id="cards-list" class="accounts-list"></div>
+
+                <div id="util-results" style="display:none;">
+                    <h3>Current Utilization</h3>
+                    <div class="grid">
+                        <div class="stat-card">
+                            <div class="value" id="current-util">--</div>
+                            <div class="label">Aggregate Utilization</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="total-limit">--</div>
+                            <div class="label">Total Credit Limit</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="total-balance">--</div>
+                            <div class="label">Total Balance</div>
+                        </div>
+                    </div>
+
+                    <h3>Optimization Targets</h3>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Target for &lt;9.5% utilization</span>
+                            <span class="result-value" id="target-9">--</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Target for &lt;4.5% utilization</span>
+                            <span class="result-value" id="target-4">--</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Amount to pay down for 9.5%</span>
+                            <span class="result-value" id="paydown-9">--</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Amount to pay down for 4.5%</span>
+                            <span class="result-value" id="paydown-4">--</span>
+                        </div>
+                    </div>
+
+                    <h3>Per-Card Analysis</h3>
+                    <table id="card-analysis">
+                        <thead>
+                            <tr>
+                                <th>Card</th>
+                                <th>Limit</th>
+                                <th>Balance</th>
+                                <th>Util %</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- AZEO Planner -->
+        <section id="azeo" class="tool-section">
+            <div class="card">
+                <h2>AZEO Statement Date Planner</h2>
+                <p><strong>All Zero Except One</strong> - The optimal strategy is to have $0 report on all cards except one small balance (1-9% on one card) to avoid the All-Zero penalty while minimizing utilization.</p>
+
+                <div class="tip">
+                    <strong>The Strategy:</strong> Pay all cards to $0 before their statement dates, EXCEPT leave a small balance ($5-50) on ONE card. This reports low utilization without triggering the All-Zero penalty (10-25 points).
+                </div>
+
+                <h3>Add Card Statement Date</h3>
+                <div class="inline-form">
+                    <input type="text" id="azeo-card-name" placeholder="Card name">
+                    <input type="number" id="azeo-statement-day" placeholder="Statement day (1-31)" min="1" max="31">
+                    <input type="number" id="azeo-limit" placeholder="Credit limit">
+                    <button class="primary" onclick="addAzeoCard()">Add</button>
+                </div>
+
+                <div id="azeo-cards-list" class="accounts-list"></div>
+
+                <div id="azeo-results" style="display:none;">
+                    <h3>Your AZEO Plan</h3>
+                    <div id="azeo-plan" class="results"></div>
+
+                    <h3>Monthly Payment Schedule</h3>
+                    <div id="azeo-schedule"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inquiry Tracker -->
+        <section id="tracker" class="tool-section">
+            <div class="card">
+                <h2>Inquiry Tracker</h2>
+                <p>Track when hard inquiries stop affecting your score (12 months) and fall off your report (24-26 months).</p>
+
+                <h3>Add Inquiry</h3>
+                <div class="inline-form">
+                    <input type="text" id="inq-name" placeholder="Creditor name">
+                    <input type="date" id="inq-date">
+                    <button class="primary" onclick="addInquiry()">Add</button>
+                </div>
+
+                <div id="inquiries-list" class="accounts-list"></div>
+
+                <div id="inq-results" style="display:none;">
+                    <h3>Inquiry Timeline</h3>
+                    <div id="inq-timeline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Derogatory Tracker -->
+        <section id="derogatory" class="tool-section">
+            <div class="card">
+                <h2>Derogatory Item Tracker</h2>
+                <p>Track when negative items reduce in impact or fall off your report.</p>
+
+                <h3>Add Derogatory Item</h3>
+                <div class="inline-form">
+                    <input type="text" id="derog-name" placeholder="Account/Item name">
+                    <input type="date" id="derog-date">
+                    <select id="derog-type">
+                        <option value="30late">30 Day Late</option>
+                        <option value="60late">60 Day Late</option>
+                        <option value="90late">90+ Day Late</option>
+                        <option value="collection">Collection</option>
+                        <option value="chargeoff">Charge-Off</option>
+                        <option value="bk7">Bankruptcy Ch.7</option>
+                        <option value="bk13">Bankruptcy Ch.13</option>
+                    </select>
+                    <button class="primary" onclick="addDerogatory()">Add</button>
+                </div>
+
+                <div id="derog-list" class="accounts-list"></div>
+
+                <div id="derog-results" style="display:none;">
+                    <h3>Derogatory Timeline</h3>
+                    <div class="tip">
+                        <strong>Note:</strong> A 60+ day late puts you on a "dirty" scorecard for 7 years. Impact decreases over time but full recovery requires the item to age off.
+                    </div>
+                    <div id="derog-timeline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scorecard Estimator -->
+        <section id="scorecard" class="tool-section">
+            <div class="card">
+                <h2>FICO 8 Scorecard Estimator</h2>
+                <p>Estimate which of the 12 FICO 8 scorecards you're on based on your profile characteristics.</p>
+
+                <div class="form-group">
+                    <label>Do you have any 60+ day lates, collections, bankruptcy, or other public records in the last 7 years?</label>
+                    <select id="sc-clean">
+                        <option value="clean">No - Clean Profile</option>
+                        <option value="dirty">Yes - Dirty Profile</option>
+                    </select>
+                </div>
+
+                <div id="clean-questions">
+                    <div class="form-group">
+                        <label>How many accounts do you have?</label>
+                        <input type="number" id="sc-accounts" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Age of your oldest account (months)</label>
+                        <input type="number" id="sc-aooa" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Age of your youngest revolving account (months)</label>
+                        <input type="number" id="sc-aoyra" value="0">
+                    </div>
+                </div>
+
+                <div id="dirty-questions" style="display:none;">
+                    <div class="form-group">
+                        <label>Do you have any public records (collections, bankruptcy, foreclosure)?</label>
+                        <select id="sc-pr">
+                            <option value="no">No - Only delinquencies</option>
+                            <option value="yes">Yes - Have public records</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>How recent is your most recent negative item?</label>
+                        <select id="sc-recency">
+                            <option value="recent">Recent (within 2 years)</option>
+                            <option value="mature">Mature (2+ years old)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="primary" onclick="estimateScorecard()">Estimate Scorecard</button>
+
+                <div id="sc-results" class="results" style="display:none; margin-top:1rem;">
+                    <h3>Your Estimated Scorecard</h3>
+                    <div id="sc-scorecard"></div>
+                    <div id="sc-insights"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>FICO 8 Scorecard Map</h2>
+                <p>The 12 scorecards in FICO Score 8:</p>
+
+                <h3>Clean Scorecards (8)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thickness</th>
+                            <th>Age</th>
+                            <th>Revolver Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Thin (&lt;4 accts)</td><td>Young (&lt;36mo)</td><td>New Revolver</td></tr>
+                        <tr><td>Thin</td><td>Young</td><td>No New Revolver</td></tr>
+                        <tr><td>Thin</td><td>Mature (36+mo)</td><td>New Revolver</td></tr>
+                        <tr><td>Thin</td><td>Mature</td><td>No New Revolver</td></tr>
+                        <tr><td>Thick (4+ accts)</td><td>Young</td><td>New Revolver</td></tr>
+                        <tr><td>Thick</td><td>Young</td><td>No New Revolver</td></tr>
+                        <tr><td>Thick</td><td>Mature</td><td>New Revolver</td></tr>
+                        <tr><td>Thick</td><td>Mature</td><td>No New Revolver ⭐</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Dirty Scorecards (4)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Severity</th>
+                            <th>Recency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Delinquency Only (no PR)</td><td>Recent</td></tr>
+                        <tr><td>Delinquency Only</td><td>Mature</td></tr>
+                        <tr><td>Public Record</td><td>Recent</td></tr>
+                        <tr><td>Public Record</td><td>Mature</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section id="reference" class="tool-section">
+            <div class="card">
+                <h2>FICO 8 Quick Reference</h2>
+                <p>Key thresholds and optimal values from the Credit Scoring Primer.</p>
+
+                <h3>The Five Categories</h3>
+                <table>
+                    <thead>
+                        <tr><th>Category</th><th>Weight</th><th>~Points</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Payment History</td><td>35%</td><td>~192</td></tr>
+                        <tr><td>Amounts Owed</td><td>30%</td><td>~165</td></tr>
+                        <tr><td>Length of History</td><td>15%</td><td>~82</td></tr>
+                        <tr><td>New Credit</td><td>10%</td><td>~55</td></tr>
+                        <tr><td>Credit Mix</td><td>10%</td><td>~55</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Optimal Values</h3>
+                <table>
+                    <thead>
+                        <tr><th>Metric</th><th>Optimal</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Payment History</td><td>100%</td><td>Zero delinquencies</td></tr>
+                        <tr><td>Aggregate Utilization</td><td>&lt;9.5%</td><td>Or &lt;4.5% on some cards</td></tr>
+                        <tr><td>Individual Card Util</td><td>&lt;9.5%</td><td>Each card matters too</td></tr>
+                        <tr><td>Retail Utilization</td><td>$0</td><td>Store cards at zero</td></tr>
+                        <tr><td>Revolving Balance</td><td>&lt;$1000</td><td>But never ALL at $0</td></tr>
+                        <tr><td>AAoA</td><td>~90 months</td><td>Believed max award</td></tr>
+                        <tr><td>AoOA</td><td>36+ months</td><td>Mature scorecard</td></tr>
+                        <tr><td>AoYRA</td><td>12+ months</td><td>No New Revolver bonus</td></tr>
+                        <tr><td>Inquiries (12mo)</td><td>0</td><td>Penalty gone at 365 days</td></tr>
+                        <tr><td>Number of Bankcards</td><td>5-7</td><td>Penalty for &lt;3</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Thresholds</h3>
+                <div class="results">
+                    <div class="result-item">
+                        <span class="result-label">60+ day late</span>
+                        <span class="result-value danger">Dirty scorecard for 7 years</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">All-Zero balances</span>
+                        <span class="result-value warning">10-25 point penalty</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">AoOA hits 36 months</span>
+                        <span class="result-value">Mature scorecard (may drop then rise)</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">AoYRA hits 12 months</span>
+                        <span class="result-value good">~10-20 point boost</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Inquiry at 365 days</span>
+                        <span class="result-value good">Score impact removed</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Inquiry at 24-26 months</span>
+                        <span class="result-value good">Falls off report</span>
+                    </div>
+                </div>
+
+                <h3>Score Ranges</h3>
+                <table>
+                    <thead>
+                        <tr><th>Rating</th><th>Range</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Exceptional</td><td>800-850</td></tr>
+                        <tr><td>Very Good</td><td>740-799</td></tr>
+                        <tr><td>Good</td><td>670-739</td></tr>
+                        <tr><td>Fair</td><td>580-669</td></tr>
+                        <tr><td>Poor</td><td>300-579</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Settings / Data Management -->
+        <section id="settings" class="tool-section">
+            <div class="card">
+                <h2>Data Management</h2>
+                <p>Your data is stored locally in your browser. It never leaves your device.</p>
+
+                <h3>Storage Status</h3>
+                <div class="results" id="storage-status">
+                    <div class="result-item">
+                        <span class="result-label">Accounts (AAoA)</span>
+                        <span class="result-value" id="storage-accounts">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Credit Cards (Utilization)</span>
+                        <span class="result-value" id="storage-cards">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">AZEO Cards</span>
+                        <span class="result-value" id="storage-azeo">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Inquiries</span>
+                        <span class="result-value" id="storage-inquiries">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Derogatory Items</span>
+                        <span class="result-value" id="storage-derogatories">0</span>
+                    </div>
+                </div>
+
+                <h3>Clear Data</h3>
+                <p style="margin-bottom:1rem;">Select which data to clear:</p>
+
+                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+                    <button class="secondary" onclick="clearData('accounts')">Clear Accounts</button>
+                    <button class="secondary" onclick="clearData('cards')">Clear Cards</button>
+                    <button class="secondary" onclick="clearData('azeo')">Clear AZEO</button>
+                    <button class="secondary" onclick="clearData('inquiries')">Clear Inquiries</button>
+                    <button class="secondary" onclick="clearData('derogatories')">Clear Derogatories</button>
+                </div>
+
+                <button class="primary" style="background:var(--danger);" onclick="clearAllData()">🗑️ Clear All Data</button>
+
+                <h3 style="margin-top:2rem;">Export / Import</h3>
+                <p>Backup your data or transfer it to another browser.</p>
+
+                <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;">
+                    <button class="primary" onclick="exportData()">📥 Export Data (JSON)</button>
+                    <label class="primary" style="display:inline-block;padding:0.75rem 1.5rem;border-radius:6px;cursor:pointer;background:var(--primary);">
+                        📤 Import Data
+                        <input type="file" accept=".json" onchange="importData(event)" style="display:none;">
+                    </label>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>About This Tool</h2>
+                <p>This toolkit is based on the <strong>Credit Scoring Primer</strong> by Birdman (1976-2023), preserved from Credit Rebels.</p>
+
+                <h3>Privacy</h3>
+                <ul style="margin-left:1.5rem;">
+                    <li>All data is stored locally in your browser (localStorage)</li>
+                    <li>No data is ever sent to any server</li>
+                    <li>No cookies, no tracking, no analytics</li>
+                    <li>Clearing your browser data will clear this tool's data</li>
+                </ul>
+
+                <h3 style="margin-top:1rem;">Source</h3>
+                <p>View the source code and documentation on <a href="https://github.com/Acelogic/CreditRebelsArchive" target="_blank">GitHub</a>.</p>
+
+                <h3 style="margin-top:1rem;">Disclaimer</h3>
+                <p style="font-size:0.9rem;color:var(--text-muted);">
+                    This tool is for educational purposes only. It is not financial advice.
+                    FICO scoring is proprietary and this information is based on reverse-engineering
+                    and community research. Your actual scores may vary.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Based on the <a href="https://github.com/Acelogic/CreditRebelsArchive">Credit Scoring Primer</a> by Birdman</p>
+        <p>This is educational information only, not financial advice.</p>
+    </footer>
+
+    <script>
+        // Tab Navigation
+        document.querySelectorAll('nav button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Data Storage
+        let accounts = JSON.parse(localStorage.getItem('cr_accounts') || '[]');
+        let cards = JSON.parse(localStorage.getItem('cr_cards') || '[]');
+        let azeoCards = JSON.parse(localStorage.getItem('cr_azeo') || '[]');
+        let inquiries = JSON.parse(localStorage.getItem('cr_inquiries') || '[]');
+        let derogatories = JSON.parse(localStorage.getItem('cr_derogatories') || '[]');
+
+        // Utility Functions
+        function monthsBetween(date1, date2) {
+            const d1 = new Date(date1);
+            const d2 = new Date(date2);
+            let months = (d2.getFullYear() - d1.getFullYear()) * 12;
+            months += d2.getMonth() - d1.getMonth();
+            if (d2.getDate() < d1.getDate()) months--;
+            return Math.max(0, months);
+        }
+
+        function formatMonths(months) {
+            const years = Math.floor(months / 12);
+            const mo = months % 12;
+            if (years === 0) return `${mo}mo`;
+            if (mo === 0) return `${years}yr`;
+            return `${years}yr ${mo}mo`;
+        }
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(num);
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function isRevolving(type) {
+            return ['bankcard', 'retail', 'charge', 'heloc'].includes(type);
+        }
+
+        // AAoA Calculator
+        function addAccount() {
+            const name = document.getElementById('acct-name').value.trim();
+            const date = document.getElementById('acct-date').value;
+            const type = document.getElementById('acct-type').value;
+
+            if (!name || !date) {
+                alert('Please enter account name and date');
+                return;
+            }
+
+            accounts.push({ name, date, type });
+            localStorage.setItem('cr_accounts', JSON.stringify(accounts));
+            document.getElementById('acct-name').value = '';
+            document.getElementById('acct-date').value = '';
+            renderAccounts();
+        }
+
+        function removeAccount(index) {
+            accounts.splice(index, 1);
+            localStorage.setItem('cr_accounts', JSON.stringify(accounts));
+            renderAccounts();
+        }
+
+        function renderAccounts() {
+            const list = document.getElementById('accounts-list');
+            const results = document.getElementById('aaoa-results');
+
+            if (accounts.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No accounts added yet.</p>';
+                results.style.display = 'none';
+                return;
+            }
+
+            const today = new Date();
+            list.innerHTML = accounts.map((a, i) => {
+                const months = monthsBetween(a.date, today);
+                return `
+                    <div class="account-item">
+                        <div class="info">
+                            <div class="name">${a.name}</div>
+                            <div class="details">${a.type} • Opened ${formatDate(a.date)} • Age: ${formatMonths(months)}</div>
+                        </div>
+                        <button onclick="removeAccount(${i})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            // Calculate metrics
+            const ages = accounts.map(a => monthsBetween(a.date, today));
+            const revolvingAges = accounts.filter(a => isRevolving(a.type)).map(a => monthsBetween(a.date, today));
+
+            const aaoa = ages.reduce((a, b) => a + b, 0) / ages.length;
+            const aooa = Math.max(...ages);
+            const aoya = Math.min(...ages);
+            const aoyra = revolvingAges.length > 0 ? Math.min(...revolvingAges) : null;
+
+            document.getElementById('aaoa-value').textContent = formatMonths(Math.round(aaoa));
+            document.getElementById('aooa-value').textContent = formatMonths(aooa);
+            document.getElementById('aoya-value').textContent = formatMonths(aoya);
+            document.getElementById('aoyra-value').textContent = aoyra !== null ? formatMonths(aoyra) : 'N/A';
+
+            // Chase 5/24
+            const cardTypes = ['bankcard', 'retail', 'charge'];
+            const recentCards = accounts.filter(a =>
+                cardTypes.includes(a.type) && monthsBetween(a.date, today) < 24
+            );
+            const chaseCount = recentCards.length;
+            document.getElementById('chase-count').textContent = chaseCount;
+            document.getElementById('chase-status').textContent = chaseCount >= 5 ? 'OVER 5/24' : 'UNDER 5/24';
+            document.getElementById('chase-status').className = 'result-value ' + (chaseCount >= 5 ? 'danger' : 'good');
+            document.getElementById('chase-slots').textContent = Math.max(0, 5 - chaseCount);
+
+            // Scorecard estimation
+            const numAccounts = accounts.length;
+            const thick = numAccounts >= 4;
+            const mature = aooa >= 36;
+            const noNewRevolver = aoyra === null || aoyra >= 12;
+
+            const scorecard = `${thick ? 'Thick' : 'Thin'} / ${mature ? 'Mature' : 'Young'} / ${noNewRevolver ? 'No New Revolver' : 'New Revolver'}`;
+
+            let insights = [];
+            if (!mature) insights.push(`⏳ ${36 - aooa} months until Mature scorecard`);
+            if (!noNewRevolver && aoyra !== null) insights.push(`⏳ ${12 - aoyra} months until No New Revolver bonus (~10-20 pts)`);
+            if (aaoa < 90) insights.push(`📈 AAoA approaching optimal (90mo believed max)`);
+            if (mature && noNewRevolver && thick) insights.push(`⭐ You're on the best clean scorecard!`);
+
+            document.getElementById('scorecard-result').innerHTML = `
+                <div class="result-item">
+                    <span class="result-label">Estimated Scorecard</span>
+                    <span class="result-value">${scorecard}</span>
+                </div>
+                ${insights.map(i => `<p style="margin-top:0.5rem;">${i}</p>`).join('')}
+            `;
+
+            results.style.display = 'block';
+        }
+
+        // Utilization Optimizer
+        function addCard() {
+            const name = document.getElementById('card-name').value.trim();
+            const limit = parseFloat(document.getElementById('card-limit').value) || 0;
+            const balance = parseFloat(document.getElementById('card-balance').value) || 0;
+
+            if (!name || limit <= 0) {
+                alert('Please enter card name and credit limit');
+                return;
+            }
+
+            cards.push({ name, limit, balance });
+            localStorage.setItem('cr_cards', JSON.stringify(cards));
+            document.getElementById('card-name').value = '';
+            document.getElementById('card-limit').value = '';
+            document.getElementById('card-balance').value = '';
+            renderCards();
+        }
+
+        function removeCard(index) {
+            cards.splice(index, 1);
+            localStorage.setItem('cr_cards', JSON.stringify(cards));
+            renderCards();
+        }
+
+        function renderCards() {
+            const list = document.getElementById('cards-list');
+            const results = document.getElementById('util-results');
+
+            if (cards.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No cards added yet.</p>';
+                results.style.display = 'none';
+                return;
+            }
+
+            list.innerHTML = cards.map((c, i) => {
+                const util = ((c.balance / c.limit) * 100).toFixed(1);
+                return `
+                    <div class="account-item">
+                        <div class="info">
+                            <div class="name">${c.name}</div>
+                            <div class="details">Limit: ${formatCurrency(c.limit)} • Balance: ${formatCurrency(c.balance)} • Util: ${util}%</div>
+                        </div>
+                        <button onclick="removeCard(${i})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            const totalLimit = cards.reduce((a, c) => a + c.limit, 0);
+            const totalBalance = cards.reduce((a, c) => a + c.balance, 0);
+            const currentUtil = (totalBalance / totalLimit) * 100;
+
+            document.getElementById('current-util').textContent = currentUtil.toFixed(1) + '%';
+            document.getElementById('current-util').className = 'value ' + (currentUtil < 9.5 ? '' : 'danger');
+            document.getElementById('total-limit').textContent = formatCurrency(totalLimit);
+            document.getElementById('total-balance').textContent = formatCurrency(totalBalance);
+
+            const target9 = totalLimit * 0.095;
+            const target4 = totalLimit * 0.045;
+            const paydown9 = Math.max(0, totalBalance - target9);
+            const paydown4 = Math.max(0, totalBalance - target4);
+
+            document.getElementById('target-9').textContent = formatCurrency(target9);
+            document.getElementById('target-4').textContent = formatCurrency(target4);
+            document.getElementById('paydown-9').textContent = paydown9 > 0 ? formatCurrency(paydown9) : '✓ Already there!';
+            document.getElementById('paydown-9').className = 'result-value ' + (paydown9 > 0 ? 'warning' : 'good');
+            document.getElementById('paydown-4').textContent = paydown4 > 0 ? formatCurrency(paydown4) : '✓ Already there!';
+            document.getElementById('paydown-4').className = 'result-value ' + (paydown4 > 0 ? 'warning' : 'good');
+
+            // Per-card analysis
+            const tbody = document.querySelector('#card-analysis tbody');
+            tbody.innerHTML = cards.map(c => {
+                const util = (c.balance / c.limit) * 100;
+                let status = 'good';
+                let statusText = '✓ Good';
+                if (util >= 30) { status = 'danger'; statusText = '⚠ High'; }
+                else if (util >= 9.5) { status = 'warning'; statusText = '↓ Lower'; }
+                return `
+                    <tr>
+                        <td>${c.name}</td>
+                        <td>${formatCurrency(c.limit)}</td>
+                        <td>${formatCurrency(c.balance)}</td>
+                        <td>${util.toFixed(1)}%</td>
+                        <td class="${status}">${statusText}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            results.style.display = 'block';
+        }
+
+        // AZEO Planner
+        function addAzeoCard() {
+            const name = document.getElementById('azeo-card-name').value.trim();
+            const day = parseInt(document.getElementById('azeo-statement-day').value) || 0;
+            const limit = parseFloat(document.getElementById('azeo-limit').value) || 0;
+
+            if (!name || day < 1 || day > 31) {
+                alert('Please enter card name and valid statement day (1-31)');
+                return;
+            }
+
+            azeoCards.push({ name, day, limit });
+            localStorage.setItem('cr_azeo', JSON.stringify(azeoCards));
+            document.getElementById('azeo-card-name').value = '';
+            document.getElementById('azeo-statement-day').value = '';
+            document.getElementById('azeo-limit').value = '';
+            renderAzeo();
+        }
+
+        function removeAzeoCard(index) {
+            azeoCards.splice(index, 1);
+            localStorage.setItem('cr_azeo', JSON.stringify(azeoCards));
+            renderAzeo();
+        }
+
+        function renderAzeo() {
+            const list = document.getElementById('azeo-cards-list');
+            const results = document.getElementById('azeo-results');
+
+            if (azeoCards.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No cards added yet.</p>';
+                results.style.display = 'none';
+                return;
+            }
+
+            list.innerHTML = azeoCards.map((c, i) => `
+                <div class="account-item">
+                    <div class="info">
+                        <div class="name">${c.name}</div>
+                        <div class="details">Statement closes: Day ${c.day}${c.limit ? ' • Limit: ' + formatCurrency(c.limit) : ''}</div>
+                    </div>
+                    <button onclick="removeAzeoCard(${i})">✕</button>
+                </div>
+            `).join('');
+
+            // Sort by statement day
+            const sorted = [...azeoCards].sort((a, b) => a.day - b.day);
+
+            // Find the card with highest limit to leave balance on
+            const cardWithBalance = azeoCards.reduce((max, c) => (!max || c.limit > max.limit) ? c : max, null);
+            const targetBalance = cardWithBalance && cardWithBalance.limit ? Math.min(50, cardWithBalance.limit * 0.01) : 10;
+
+            document.getElementById('azeo-plan').innerHTML = `
+                <div class="result-item">
+                    <span class="result-label">Card to leave balance on</span>
+                    <span class="result-value good">${cardWithBalance ? cardWithBalance.name : sorted[0].name}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Target balance to leave</span>
+                    <span class="result-value">${formatCurrency(targetBalance)} (1-9% of limit)</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">All other cards</span>
+                    <span class="result-value">Pay to $0 before statement date</span>
+                </div>
+            `;
+
+            document.getElementById('azeo-schedule').innerHTML = sorted.map(c => {
+                const isBalanceCard = cardWithBalance && c.name === cardWithBalance.name;
+                return `
+                    <div class="timeline-item">
+                        <div class="date">Day ${c.day}: ${c.name}</div>
+                        <div class="event">${isBalanceCard ?
+                            `✓ Leave ~${formatCurrency(targetBalance)} balance to report` :
+                            '→ Pay to $0 before this date'}</div>
+                    </div>
+                `;
+            }).join('');
+
+            results.style.display = 'block';
+        }
+
+        // Inquiry Tracker
+        function addInquiry() {
+            const name = document.getElementById('inq-name').value.trim();
+            const date = document.getElementById('inq-date').value;
+
+            if (!name || !date) {
+                alert('Please enter creditor name and inquiry date');
+                return;
+            }
+
+            inquiries.push({ name, date });
+            localStorage.setItem('cr_inquiries', JSON.stringify(inquiries));
+            document.getElementById('inq-name').value = '';
+            document.getElementById('inq-date').value = '';
+            renderInquiries();
+        }
+
+        function removeInquiry(index) {
+            inquiries.splice(index, 1);
+            localStorage.setItem('cr_inquiries', JSON.stringify(inquiries));
+            renderInquiries();
+        }
+
+        function renderInquiries() {
+            const list = document.getElementById('inquiries-list');
+            const results = document.getElementById('inq-results');
+
+            if (inquiries.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No inquiries added yet.</p>';
+                results.style.display = 'none';
+                return;
+            }
+
+            const today = new Date();
+            list.innerHTML = inquiries.map((inq, i) => {
+                const months = monthsBetween(inq.date, today);
+                return `
+                    <div class="account-item">
+                        <div class="info">
+                            <div class="name">${inq.name}</div>
+                            <div class="details">${formatDate(inq.date)} • ${formatMonths(months)} ago</div>
+                        </div>
+                        <button onclick="removeInquiry(${i})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            // Timeline
+            document.getElementById('inq-timeline').innerHTML = inquiries.map(inq => {
+                const inqDate = new Date(inq.date);
+                const months = monthsBetween(inq.date, today);
+                const scoreImpactDate = new Date(inqDate);
+                scoreImpactDate.setFullYear(scoreImpactDate.getFullYear() + 1);
+                const fallOffDate = new Date(inqDate);
+                fallOffDate.setMonth(fallOffDate.getMonth() + 25);
+
+                const scoreImpactGone = today >= scoreImpactDate;
+                const fallenOff = today >= fallOffDate;
+
+                return `
+                    <div class="timeline-item ${fallenOff ? 'complete' : ''}">
+                        <div class="date">${inq.name}</div>
+                        <div class="event">
+                            ${scoreImpactGone ?
+                                '✓ Score impact removed' :
+                                `⏳ Score impact ends: ${formatDate(scoreImpactDate)}`}
+                            <br>
+                            ${fallenOff ?
+                                '✓ Fallen off report' :
+                                `⏳ Falls off report: ~${formatDate(fallOffDate)}`}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            results.style.display = 'block';
+        }
+
+        // Derogatory Tracker
+        function addDerogatory() {
+            const name = document.getElementById('derog-name').value.trim();
+            const date = document.getElementById('derog-date').value;
+            const type = document.getElementById('derog-type').value;
+
+            if (!name || !date) {
+                alert('Please enter item name and date');
+                return;
+            }
+
+            derogatories.push({ name, date, type });
+            localStorage.setItem('cr_derogatories', JSON.stringify(derogatories));
+            document.getElementById('derog-name').value = '';
+            document.getElementById('derog-date').value = '';
+            renderDerogatories();
+        }
+
+        function removeDerogatory(index) {
+            derogatories.splice(index, 1);
+            localStorage.setItem('cr_derogatories', JSON.stringify(derogatories));
+            renderDerogatories();
+        }
+
+        function renderDerogatories() {
+            const list = document.getElementById('derog-list');
+            const results = document.getElementById('derog-results');
+
+            const typeLabels = {
+                '30late': '30 Day Late',
+                '60late': '60 Day Late',
+                '90late': '90+ Day Late',
+                'collection': 'Collection',
+                'chargeoff': 'Charge-Off',
+                'bk7': 'Bankruptcy Ch.7',
+                'bk13': 'Bankruptcy Ch.13'
+            };
+
+            if (derogatories.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);padding:1rem;">No derogatory items added.</p>';
+                results.style.display = 'none';
+                return;
+            }
+
+            const today = new Date();
+            list.innerHTML = derogatories.map((d, i) => {
+                const months = monthsBetween(d.date, today);
+                return `
+                    <div class="account-item">
+                        <div class="info">
+                            <div class="name">${d.name}</div>
+                            <div class="details">${typeLabels[d.type]} • ${formatDate(d.date)} • ${formatMonths(months)} ago</div>
+                        </div>
+                        <button onclick="removeDerogatory(${i})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            // Timeline with fall-off dates
+            document.getElementById('derog-timeline').innerHTML = derogatories.map(d => {
+                const derogDate = new Date(d.date);
+                const months = monthsBetween(d.date, today);
+
+                let fallOffYears = 7;
+                if (d.type === 'bk7') fallOffYears = 10;
+                if (d.type === 'bk13') fallOffYears = 7;
+
+                const fallOffDate = new Date(derogDate);
+                fallOffDate.setFullYear(fallOffDate.getFullYear() + fallOffYears);
+
+                const fallenOff = today >= fallOffDate;
+                const monthsRemaining = monthsBetween(today, fallOffDate);
+
+                // Dirty scorecard for 60+ lates
+                let dirtyNote = '';
+                if (['60late', '90late', 'collection', 'chargeoff', 'bk7', 'bk13'].includes(d.type)) {
+                    const dirtyEndDate = new Date(derogDate);
+                    dirtyEndDate.setFullYear(dirtyEndDate.getFullYear() + 7);
+                    if (today < dirtyEndDate) {
+                        dirtyNote = `<br>⚠ On dirty scorecard until: ${formatDate(dirtyEndDate)}`;
+                    }
+                }
+
+                return `
+                    <div class="timeline-item ${fallenOff ? 'complete' : ''}">
+                        <div class="date">${d.name} (${typeLabels[d.type]})</div>
+                        <div class="event">
+                            ${fallenOff ?
+                                '✓ Should have fallen off report' :
+                                `⏳ Falls off: ${formatDate(fallOffDate)} (${formatMonths(monthsRemaining)} remaining)`}
+                            ${dirtyNote}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            results.style.display = 'block';
+        }
+
+        // Scorecard Estimator
+        document.getElementById('sc-clean').addEventListener('change', function() {
+            document.getElementById('clean-questions').style.display = this.value === 'clean' ? 'block' : 'none';
+            document.getElementById('dirty-questions').style.display = this.value === 'dirty' ? 'block' : 'none';
+        });
+
+        function estimateScorecard() {
+            const isClean = document.getElementById('sc-clean').value === 'clean';
+            const results = document.getElementById('sc-results');
+            let scorecard = '';
+            let insights = [];
+
+            if (isClean) {
+                const accounts = parseInt(document.getElementById('sc-accounts').value) || 0;
+                const aooa = parseInt(document.getElementById('sc-aooa').value) || 0;
+                const aoyra = parseInt(document.getElementById('sc-aoyra').value) || 0;
+
+                const thick = accounts >= 4;
+                const mature = aooa >= 36;
+                const noNewRevolver = aoyra >= 12 || aoyra === 0;
+
+                scorecard = `<span class="scorecard-badge">${thick ? 'Thick' : 'Thin'}</span>
+                            <span class="scorecard-badge">${mature ? 'Mature' : 'Young'}</span>
+                            <span class="scorecard-badge">${noNewRevolver ? 'No New Revolver' : 'New Revolver'}</span>`;
+
+                if (!thick) insights.push(`Add ${4 - accounts} more accounts to become "Thick"`);
+                if (!mature) insights.push(`${36 - aooa} months until "Mature" scorecard (may cause temporary dip then recovery)`);
+                if (!noNewRevolver) insights.push(`${12 - aoyra} months until "No New Revolver" bonus (~10-20 points)`);
+                if (thick && mature && noNewRevolver) insights.push(`⭐ You're on the optimal clean scorecard!`);
+
+            } else {
+                const hasPR = document.getElementById('sc-pr').value === 'yes';
+                const isRecent = document.getElementById('sc-recency').value === 'recent';
+
+                scorecard = `<span class="scorecard-badge">${hasPR ? 'Public Record' : 'Delinquency'}</span>
+                            <span class="scorecard-badge">${isRecent ? 'Recent' : 'Mature'}</span>`;
+
+                insights.push('You are on a dirty scorecard - this limits your maximum score');
+                if (isRecent) insights.push('As the negative item ages, you may move to the "Mature" dirty scorecard');
+                insights.push('After 7 years (10 for Ch.7 BK), you will return to a clean scorecard');
+            }
+
+            document.getElementById('sc-scorecard').innerHTML = scorecard;
+            document.getElementById('sc-insights').innerHTML = insights.map(i => `<p style="margin:0.5rem 0;">→ ${i}</p>`).join('');
+            results.style.display = 'block';
+        }
+
+        // Data Management Functions
+        function updateStorageStatus() {
+            document.getElementById('storage-accounts').textContent = accounts.length;
+            document.getElementById('storage-cards').textContent = cards.length;
+            document.getElementById('storage-azeo').textContent = azeoCards.length;
+            document.getElementById('storage-inquiries').textContent = inquiries.length;
+            document.getElementById('storage-derogatories').textContent = derogatories.length;
+        }
+
+        function clearData(type) {
+            if (!confirm(`Are you sure you want to clear all ${type} data?`)) return;
+
+            switch(type) {
+                case 'accounts':
+                    accounts = [];
+                    localStorage.removeItem('cr_accounts');
+                    renderAccounts();
+                    break;
+                case 'cards':
+                    cards = [];
+                    localStorage.removeItem('cr_cards');
+                    renderCards();
+                    break;
+                case 'azeo':
+                    azeoCards = [];
+                    localStorage.removeItem('cr_azeo');
+                    renderAzeo();
+                    break;
+                case 'inquiries':
+                    inquiries = [];
+                    localStorage.removeItem('cr_inquiries');
+                    renderInquiries();
+                    break;
+                case 'derogatories':
+                    derogatories = [];
+                    localStorage.removeItem('cr_derogatories');
+                    renderDerogatories();
+                    break;
+            }
+            updateStorageStatus();
+        }
+
+        function clearAllData() {
+            if (!confirm('Are you sure you want to clear ALL data? This cannot be undone.')) return;
+            if (!confirm('Really delete everything?')) return;
+
+            accounts = [];
+            cards = [];
+            azeoCards = [];
+            inquiries = [];
+            derogatories = [];
+
+            localStorage.removeItem('cr_accounts');
+            localStorage.removeItem('cr_cards');
+            localStorage.removeItem('cr_azeo');
+            localStorage.removeItem('cr_inquiries');
+            localStorage.removeItem('cr_derogatories');
+
+            renderAccounts();
+            renderCards();
+            renderAzeo();
+            renderInquiries();
+            renderDerogatories();
+            updateStorageStatus();
+
+            alert('All data cleared!');
+        }
+
+        function exportData() {
+            const data = {
+                version: 1,
+                exported: new Date().toISOString(),
+                accounts,
+                cards,
+                azeoCards,
+                inquiries,
+                derogatories
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `credit-toolkit-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+
+                    if (!confirm(`Import ${data.accounts?.length || 0} accounts, ${data.cards?.length || 0} cards, ${data.inquiries?.length || 0} inquiries? This will replace your current data.`)) {
+                        return;
+                    }
+
+                    if (data.accounts) {
+                        accounts = data.accounts;
+                        localStorage.setItem('cr_accounts', JSON.stringify(accounts));
+                    }
+                    if (data.cards) {
+                        cards = data.cards;
+                        localStorage.setItem('cr_cards', JSON.stringify(cards));
+                    }
+                    if (data.azeoCards) {
+                        azeoCards = data.azeoCards;
+                        localStorage.setItem('cr_azeo', JSON.stringify(azeoCards));
+                    }
+                    if (data.inquiries) {
+                        inquiries = data.inquiries;
+                        localStorage.setItem('cr_inquiries', JSON.stringify(inquiries));
+                    }
+                    if (data.derogatories) {
+                        derogatories = data.derogatories;
+                        localStorage.setItem('cr_derogatories', JSON.stringify(derogatories));
+                    }
+
+                    renderAccounts();
+                    renderCards();
+                    renderAzeo();
+                    renderInquiries();
+                    renderDerogatories();
+                    updateStorageStatus();
+
+                    alert('Data imported successfully!');
+                } catch (err) {
+                    alert('Error importing data: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // Reset file input
+        }
+
+        // Initialize on load
+        renderAccounts();
+        renderCards();
+        renderAzeo();
+        renderInquiries();
+        renderDerogatories();
+        updateStorageStatus();
+    </script>
+</body>
+</html>
