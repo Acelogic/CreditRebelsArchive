@@ -44,7 +44,7 @@ CreditRebelsArchive/
 │   ├── CART_Method_Goodwill_Letters.pdf    # Letter writing template
 │   └── cart_method_goodwill_letters.txt    # Plain text version
 └── tools/
-    └── aaoa_calculator.py                  # Python CLI tool for developers
+    └── credit_toolkit.py                   # Full CLI toolkit (matches web app)
 ```
 
 ---
@@ -118,14 +118,16 @@ A free, privacy-focused web app with everything you need:
 For those who prefer command-line tools:
 
 ```bash
-# Interactive mode
-python tools/aaoa_calculator.py
-
-# Load from CSV
-python tools/aaoa_calculator.py accounts.csv
+python tools/credit_toolkit.py
 ```
 
-Features: AAoA calculation, Chase 5/24, scorecard estimation, CSV import/export.
+Full interactive menu with all 6 tools:
+- AAoA Calculator (account ages, Chase 5/24, scorecard)
+- Utilization Optimizer (target balances, per-card analysis)
+- AZEO Planner (statement date strategy)
+- Inquiry Tracker (12-month / 24-month timelines)
+- Derogatory Tracker (7-year fall-off dates)
+- Scorecard Estimator (clean/dirty scorecard identification)
 
 ---
 
