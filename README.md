@@ -51,7 +51,13 @@ CreditRebelsArchive/
 │   ├── Dispute_Letter_Templates.md             # 9 dispute letter templates
 │   ├── Reddit_CRedit_Resources.md              # r/CRedit sidebar quick reference
 │   ├── Reddit_CRedit_Wiki_Backup.md            # Complete r/CRedit wiki backup
-│   └── History_of_Credit_Scoring_Primer.md     # Origin story of the CSP
+│   ├── History_of_Credit_Scoring_Primer.md     # Origin story of the CSP
+│   └── WorkInProgress/
+│       ├── VantageScore_Guide.md               # VantageScore 3.0 & 4.0 deep dive
+│       ├── FICO_Auto_Score_Guide.md            # FICO Auto Scores 2/4/5/8/9/10
+│       ├── FICO_Bankcard_Score_Guide.md        # FICO Bankcard Scores 2/4/5/8/9/10
+│       ├── FICO_Score_10_Guide.md              # FICO Score 10 & 10T (trended data)
+│       └── Scoring_Model_Comparison_Matrix.md  # Side-by-side model comparison
 └── tools/
     └── credit_toolkit.py                       # Full CLI toolkit (matches web app)
 ```
@@ -94,6 +100,14 @@ A free, privacy-focused web app with everything you need:
 - [**r/CRedit Resources**](docs/Reddit_CRedit_Resources.md) - Quick reference of r/CRedit sidebar resources
 - [**r/CRedit Wiki Backup**](docs/Reddit_CRedit_Wiki_Backup.md) - Complete backup of all r/CRedit wiki pages
 - [**History of the Credit Scoring Primer**](docs/History_of_Credit_Scoring_Primer.md) - Origin story of the CSP and the community behind it
+
+### Work In Progress
+These guides expand coverage beyond FICO Score 8 to the full landscape of scoring models:
+- [**VantageScore Guide**](docs/WorkInProgress/VantageScore_Guide.md) - VantageScore 3.0 & 4.0: scoring factors, trended data, differences from FICO
+- [**FICO Auto Score Guide**](docs/WorkInProgress/FICO_Auto_Score_Guide.md) - Auto-enhanced scores (2/4/5/8/9/10), 250-900 range, rate shopping strategies
+- [**FICO Bankcard Score Guide**](docs/WorkInProgress/FICO_Bankcard_Score_Guide.md) - Bankcard-enhanced scores (2/4/5/8/9/10), revolving-heavy weighting
+- [**FICO Score 10 & 10T Guide**](docs/WorkInProgress/FICO_Score_10_Guide.md) - Latest FICO generation with trended data, FHFA adoption timeline
+- [**Scoring Model Comparison Matrix**](docs/WorkInProgress/Scoring_Model_Comparison_Matrix.md) - Side-by-side comparison of all major scoring models
 
 ---
 
